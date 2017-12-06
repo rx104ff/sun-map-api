@@ -3,7 +3,6 @@ package com.sunmap.sunelectric.map.models
 import javax.persistence.Entity
 import javax.persistence.Id
 import javax.persistence.Column
-import javax.persistence.FetchType
 import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 
