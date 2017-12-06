@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController
 
 
 @RestController
-@RequestMapping("/consumer-accounts")
+@RequestMapping("/global")
 class GlobalInformationController {
     @GetMapping("")
     fun getCurrentConsumerAccount(): String {
