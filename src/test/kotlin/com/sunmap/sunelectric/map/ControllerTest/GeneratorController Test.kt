@@ -1,7 +1,7 @@
 package com.sunmap.sunelectric.map.ControllerTest
 
-import com.sunmap.sunelectric.map.models.GlobalInformation
-import com.sunmap.sunelectric.map.repositories.GlobalInformationRepository
+import com.sunmap.sunelectric.map.repositories.GeneratorAccountRepository
+import com.sunmap.sunelectric.map.utils.GeneratorAccountBuilder
 import org.hamcrest.Matchers
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -22,12 +22,32 @@ class GeneratorControllerTest {
     @Autowired
     lateinit var mockMvc: MockMvc
 
+    @Autowired
+    lateinit var generatorAccountRepository: GeneratorAccountRepository
+
     @Test
-    fun getAllGenerator() {
+    fun getAllGenerators() {
+        val generatorAccountOne = generatorAccountRepository.save(GeneratorAccountBuilder().default())
+        val generatorAccountTwo = generatorAccountRepository.save(GeneratorAccountBuilder(address = "20 Anson").default())
 
         mockMvc
                 .perform(MockMvcRequestBuilders.get("/generator")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk)
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].address", Matchers.`is`(generatorAccountOne.address)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].address", Matchers.`is`(generatorAccountTwo.address)))
+
+    }
+
+    @Test
+    fun getGeneratorByAddress() {
+        val generatorAccount = generatorAccountRepository.save(GeneratorAccountBuilder().default())
+
+        mockMvc
+                .perform(MockMvcRequestBuilders.get("/generator/${generatorAccount.address}")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk)
+                .andExpect(MockMvcResultMatchers.jsonPath("$.address", Matchers.`is`(generatorAccount.address)))
+
     }
 }
