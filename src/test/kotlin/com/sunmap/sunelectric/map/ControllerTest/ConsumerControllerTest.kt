@@ -1,8 +1,5 @@
 package com.sunmap.sunelectric.map.ControllerTest
 
-import com.sunmap.sunelectric.map.models.GlobalInformation
-import com.sunmap.sunelectric.map.repositories.GlobalInformationRepository
-import org.hamcrest.Matchers
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
@@ -17,16 +14,16 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 @RunWith(SpringRunner::class)
 @SpringBootTest
 @AutoConfigureMockMvc
-class GeneratorControllerTest {
+class ConsumerControllerTest {
 
     @Autowired
     lateinit var mockMvc: MockMvc
 
     @Test
-    fun getAllGenerator() {
+    fun getAllConsumers() {
 
         mockMvc
-                .perform(MockMvcRequestBuilders.get("/generator")
+                .perform(MockMvcRequestBuilders.get("/consumer")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk)
     }
