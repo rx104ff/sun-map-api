@@ -1,11 +1,9 @@
 package com.sunmap.sunelectric.map.controllers
 
 import com.sunmap.sunelectric.map.dtos.GlobalInformationDTO
+import com.sunmap.sunelectric.map.dtos.SuccessDTO
 import com.sunmap.sunelectric.map.services.GlobalInformationService
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 
 @RestController
@@ -14,5 +12,10 @@ class GlobalInformationController(val globalInformationService: GlobalInformatio
     @GetMapping("")
     fun getGlobalInformation(): GlobalInformationDTO{
         return globalInformationService.getAllInformation()
+    }
+
+    @PostMapping("")
+    fun saveGlobalInformation(): SuccessDTO {
+        return SuccessDTO(successMessage = "Global Information Successfully Saved.")
     }
 }

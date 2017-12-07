@@ -2,6 +2,8 @@ package com.sunmap.sunelectric.map.ControllerTest
 
 import com.sunmap.sunelectric.map.models.GlobalInformation
 import com.sunmap.sunelectric.map.repositories.GlobalInformationRepository
+import com.sunmap.sunelectric.map.utils.GlobalInformationDTOBuilder
+import com.sunmap.sunelectric.map.utils.Helper
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
@@ -13,7 +15,6 @@ import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 import org.hamcrest.Matchers
-
 
 @RunWith(SpringRunner::class)
 @SpringBootTest
@@ -37,5 +38,17 @@ class GlobalInformationControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.totalConsumption", Matchers.`is`(expectedGlobalInformation.totalConsumption!!.toInt())))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.totalGeneration", Matchers.`is`(expectedGlobalInformation.totalGeneration!!.toInt())))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.carbonCredit", Matchers.`is`(expectedGlobalInformation.carbonCredit!!.toInt())))
+    }
+
+    @Test
+    fun saveGlobalInformation() {
+        val globalInformationDTO = GlobalInformationDTOBuilder().default()
+
+        mockMvc
+                .perform(MockMvcRequestBuilders.post("/global")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(Helper.serializeToJson(globalInformationDTO)))
+                .andExpect(MockMvcResultMatchers.status().isOk)
+                .andExpect(MockMvcResultMatchers.jsonPath("$.successMessage", Matchers.`is`("Global Information Successfully Saved.")))
     }
 }

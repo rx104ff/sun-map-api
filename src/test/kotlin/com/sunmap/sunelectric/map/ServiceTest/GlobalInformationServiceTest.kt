@@ -11,8 +11,11 @@ import org.springframework.test.context.junit4.SpringRunner
 import com.nhaarman.mockito_kotlin.whenever
 import com.sunmap.sunelectric.map.models.GlobalInformation
 import com.sunmap.sunelectric.map.services.GlobalInformationService
+import com.sunmap.sunelectric.map.utils.GlobalInformationBuilder
+import com.sunmap.sunelectric.map.utils.GlobalInformationDTOBuilder
 import org.assertj.core.api.Assertions.assertThat
 import org.mockito.InjectMocks
+import java.time.LocalDateTime
 
 @RunWith(SpringRunner::class)
 @SpringBootTest
@@ -32,6 +35,23 @@ class GlobalInformationServiceTest {
         val globalInformation = globalInformationService.getAllInformation()
 
         verify(globalInformationRepository).findTopByOrderByIdDesc()
+        assertThat(globalInformation.totalConsumption).isEqualTo(expectedGlobalInformation.totalConsumption)
+        assertThat(globalInformation.totalGeneration).isEqualTo(expectedGlobalInformation.totalGeneration)
+        assertThat(globalInformation.carbonCredit).isEqualTo(expectedGlobalInformation.carbonCredit)
+    }
+
+
+    @Test
+    fun saveNewInformation_savesNewInformation() {
+        val currentDateTime = LocalDateTime.now()
+        val expectedGlobalInformation = GlobalInformationBuilder(date = currentDateTime).default()
+        val globalInformationDTO = GlobalInformationDTOBuilder(date = currentDateTime).default()
+
+        whenever(globalInformationRepository.save(GlobalInformation.fromDto(globalInformationDTO))).thenReturn(expectedGlobalInformation)
+
+        val globalInformation = globalInformationService.saveNewInformation(globalInformationDTO)
+
+        verify(globalInformationRepository).save(GlobalInformation.fromDto(globalInformationDTO))
         assertThat(globalInformation.totalConsumption).isEqualTo(expectedGlobalInformation.totalConsumption)
         assertThat(globalInformation.totalGeneration).isEqualTo(expectedGlobalInformation.totalGeneration)
         assertThat(globalInformation.carbonCredit).isEqualTo(expectedGlobalInformation.carbonCredit)
