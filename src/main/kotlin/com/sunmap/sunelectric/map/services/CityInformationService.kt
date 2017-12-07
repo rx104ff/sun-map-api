@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service
 @Service
 class CityInformationService(val cityInformationRepository: CityInformationRepository) {
     fun getCityInformationByName(cityName: String): CityInformationDTO {
-        val cityInformation = cityInformationRepository.findByName(cityName)
-        return CityInformationDTO(cityInformation.name)
+        return cityInformationRepository.findByName(cityName).toDto()
     }
 }

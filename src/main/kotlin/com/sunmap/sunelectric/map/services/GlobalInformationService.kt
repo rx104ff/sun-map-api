@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service
 @Service
 class GlobalInformationService(val globalInformationRepository: GlobalInformationRepository) {
     fun getAllInformation(): GlobalInformationDTO {
-        val globalInformation = globalInformationRepository.findTopByOrderByIdDesc()
-        return GlobalInformationDTO(globalInformation.totalConsumption, globalInformation.totalGeneration, globalInformation.carbonCredit)
+        return globalInformationRepository.findTopByOrderByIdDesc().toDto()
     }
 }

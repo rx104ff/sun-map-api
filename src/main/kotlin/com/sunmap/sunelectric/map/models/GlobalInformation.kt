@@ -1,5 +1,6 @@
 package com.sunmap.sunelectric.map.models
 
+import com.sunmap.sunelectric.map.dtos.GlobalInformationDTO
 import javax.persistence.Entity
 import javax.persistence.Id
 import javax.persistence.Column
@@ -22,4 +23,12 @@ data class GlobalInformation(
 
         @Column(nullable = false)
         var carbonCredit: Long? = null
-)
+) {
+    fun toDto(): GlobalInformationDTO {
+        return GlobalInformationDTO(
+                totalConsumption = totalConsumption,
+                totalGeneration = totalGeneration,
+                carbonCredit = carbonCredit
+        )
+    }
+}
