@@ -33,6 +33,7 @@ class ConsumerController(val consumerService: ConsumerService) {
 
     @PutMapping("/{mssl}/{solarPlan}")
     fun updateConsumerPlan(@PathVariable mssl: String, @PathVariable solarPlan: SolarPlan): SuccessDTO {
+        consumerService.updateConsumerPlan(mssl, solarPlan)
         return SuccessDTO("Consumer's plan is successfully updated")
     }
 }
