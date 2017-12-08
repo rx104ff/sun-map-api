@@ -24,9 +24,13 @@ class ConsumerService(val consumerAccountRepository: ConsumerAccountRepository) 
         return consumerAccountRepository.save(ConsumerAccount.fromDto(consumerAccountDTO))
     }
 
-    fun updateConsumerPlan(mssl:String, solarPlan: SolarPlan): ConsumerAccount {
+    fun updateConsumerPlan(mssl: String, solarPlan: SolarPlan): ConsumerAccount {
         val consumerAccount = consumerAccountRepository.findByMssl(mssl)
         consumerAccount.solarPlan = solarPlan
         return consumerAccountRepository.save(consumerAccount)
+    }
+
+    fun removeConsumerByMssl(mssl: String): Long {
+        return consumerAccountRepository.removeByMssl(mssl)
     }
 }

@@ -2,12 +2,9 @@ package com.sunmap.sunelectric.map.ServiceTest
 
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
-import com.sunmap.sunelectric.map.models.ConsumerAccount
 import com.sunmap.sunelectric.map.models.GeneratorAccount
 import com.sunmap.sunelectric.map.repositories.GeneratorAccountRepository
 import com.sunmap.sunelectric.map.services.GeneratorService
-import com.sunmap.sunelectric.map.utils.ConsumerAccountBuilder
-import com.sunmap.sunelectric.map.utils.ConsumerAccountDTOBuilder
 import com.sunmap.sunelectric.map.utils.GeneratorAccountBuilder
 import com.sunmap.sunelectric.map.utils.GeneratorAccountDTOBuilder
 import org.assertj.core.api.Assertions
@@ -64,5 +61,15 @@ class GeneratorServiceTest {
 
         verify(generatorAccountRepository).save(GeneratorAccount.fromDto(generatorAccountDto))
         Assertions.assertThat(generatorAccount.address).isEqualTo(expectedGeneratorAccount.address)
+    }
+
+    @Test
+    fun removeGenerator_removesGenerator() {
+        val generatorAccount = GeneratorAccountBuilder().default()
+        whenever(generatorAccountRepository.removeByAddress(generatorAccount.address)).thenReturn(1)
+
+        generatorService.removeGeneratorByAddress(generatorAccount.address!!)
+
+        verify(generatorAccountRepository).removeByAddress(generatorAccount.address)
     }
 }

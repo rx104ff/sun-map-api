@@ -7,4 +7,5 @@ interface ConsumerAccountRepository : JpaRepository<ConsumerAccount, Long> {
     fun findByAddress(address: String?): ConsumerAccount
     fun findByMssl(mssl: String?): ConsumerAccount
     override fun findAll(): List<ConsumerAccount>
+    fun removeByMssl(mssl: String?): Long
 }

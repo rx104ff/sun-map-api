@@ -15,18 +15,18 @@ class ConsumerController(val consumerService: ConsumerService) {
         return consumerService.getAllConsumers()
     }
 
-    @GetMapping("/{consumerAddress}")
+    @GetMapping("/address/{consumerAddress}")
     fun getConsumerByAddress(@PathVariable consumerAddress: String): ConsumerAccountDTO {
         return consumerService.getConsumerByAddress(consumerAddress)
     }
 
-    @GetMapping("/{mssl}")
+    @GetMapping("/mssl/{mssl}")
     fun getConsumerByMssl(@PathVariable mssl: String): ConsumerAccountDTO {
         return consumerService.getConsumerByMssl(mssl)
     }
 
     @PostMapping("")
-    fun saveConsumer(@Valid @RequestBody consumerAccountDTO: ConsumerAccountDTO ): SuccessDTO {
+    fun saveConsumer(@Valid @RequestBody consumerAccountDTO: ConsumerAccountDTO): SuccessDTO {
         consumerService.saveNewConsumer(consumerAccountDTO)
         return SuccessDTO("Consumer is successfully saved")
     }
@@ -35,5 +35,10 @@ class ConsumerController(val consumerService: ConsumerService) {
     fun updateConsumerPlan(@PathVariable mssl: String, @PathVariable solarPlan: SolarPlan): SuccessDTO {
         consumerService.updateConsumerPlan(mssl, solarPlan)
         return SuccessDTO("Consumer's plan is successfully updated")
+    }
+
+    @PutMapping("/mssl/{mssl}")
+    fun deleteConsumerByMssl(@PathVariable mssl: String): SuccessDTO {
+        return SuccessDTO("Consumer is successfully deleted")
     }
 }

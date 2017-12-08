@@ -1,8 +1,6 @@
 package com.sunmap.sunelectric.map.ServiceTest
 
-import com.fasterxml.jackson.databind.jsontype.impl.AsExistingPropertyTypeSerializer
-import com.nhaarman.mockito_kotlin.verify
-import com.nhaarman.mockito_kotlin.whenever
+import com.nhaarman.mockito_kotlin.*
 import com.sunmap.sunelectric.map.enums.SolarPlan
 import com.sunmap.sunelectric.map.models.ConsumerAccount
 import com.sunmap.sunelectric.map.repositories.ConsumerAccountRepository
@@ -100,5 +98,15 @@ class ConsumerServiceTest {
         Assertions.assertThat(consumerAccount.id).isEqualTo(updatedConsumerAccount.id)
         Assertions.assertThat(consumerAccount.solarPlan).isEqualTo(updatedConsumerAccount.solarPlan)
         Assertions.assertThat(consumerAccount.mssl).isEqualTo(updatedConsumerAccount.mssl)
+    }
+
+    @Test
+    fun removeConsumer_removesConsumer() {
+        val consumerAccount = ConsumerAccountBuilder().default()
+        whenever(consumerAccountRepository.removeByMssl(consumerAccount.mssl)).thenReturn(1)
+
+        consumerService.removeConsumerByMssl(consumerAccount.mssl!!)
+
+        verify(consumerAccountRepository).removeByMssl(consumerAccount.mssl)
     }
 }

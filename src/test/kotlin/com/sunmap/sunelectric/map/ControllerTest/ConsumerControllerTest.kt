@@ -1,5 +1,6 @@
 package com.sunmap.sunelectric.map.ControllerTest
 
+import com.nhaarman.mockito_kotlin.mock
 import com.sunmap.sunelectric.map.enums.SolarPlan
 import com.sunmap.sunelectric.map.repositories.ConsumerAccountRepository
 import com.sunmap.sunelectric.map.utils.*
@@ -46,11 +47,25 @@ class ConsumerControllerTest {
         val consumerAccount = consumerAccountRepository.save(ConsumerAccountBuilder().default())
 
         mockMvc
-                .perform(MockMvcRequestBuilders.get("/consumer/${consumerAccount.address}")
+                .perform(MockMvcRequestBuilders.get("/consumer/email/${consumerAccount.address}")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk)
                 .andExpect(MockMvcResultMatchers.jsonPath("$.address", Matchers.`is`(consumerAccount.address)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.solarPlan", Matchers.`is`(consumerAccount.solarPlan!!.toString())))
+
+    }
+
+    @Test
+    fun getConsumerByMssl() {
+        val consumerAccount = consumerAccountRepository.save(ConsumerAccountBuilder().default())
+
+        mockMvc
+                .perform(MockMvcRequestBuilders.get("/consumer/mssl/${consumerAccount.mssl}")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk)
+                .andExpect(MockMvcResultMatchers.jsonPath("$.address", Matchers.`is`(consumerAccount.address)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.solarPlan", Matchers.`is`(consumerAccount.solarPlan!!.toString())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.mssl", Matchers.`is`(consumerAccount.mssl)))
 
     }
 
@@ -77,5 +92,22 @@ class ConsumerControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk)
                 .andExpect(MockMvcResultMatchers.jsonPath("$.successMessage", Matchers.`is`("Consumer's plan is successfully updated")))
+
+        mockMvc
+                .perform(MockMvcRequestBuilders.get("/consumer/${consumerAccount.mssl}")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk)
+                .andExpect(MockMvcResultMatchers.jsonPath("$.solarPlan", Matchers.`is`(solarPlan.toString())))
+    }
+
+    @Test
+    fun deleteConsumer() {
+        val consumerAccount = consumerAccountRepository.save(ConsumerAccountBuilder().default())
+
+        mockMvc
+                .perform(MockMvcRequestBuilders.put("/consumer/mssl/${consumerAccount.mssl}/")
+                        .contentType((MediaType.APPLICATION_JSON)))
+                .andExpect(MockMvcResultMatchers.status().isOk)
+                .andExpect(MockMvcResultMatchers.jsonPath("$.successMessage", Matchers.`is`("Consumer is successfully deleted")))
     }
 }

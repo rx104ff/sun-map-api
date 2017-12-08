@@ -18,4 +18,8 @@ class GeneratorService(val generatorAccountRepository: GeneratorAccountRepositor
     fun saveNewGenerator(generatorAccountDTO: GeneratorAccountDTO): GeneratorAccount {
         return generatorAccountRepository.save(GeneratorAccount.fromDto(generatorAccountDTO))
     }
+
+    fun removeGeneratorByAddress(address: String): Long{
+        return generatorAccountRepository.removeByAddress(address)
+    }
 }
