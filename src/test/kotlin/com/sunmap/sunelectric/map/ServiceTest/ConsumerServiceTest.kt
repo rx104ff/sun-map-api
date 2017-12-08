@@ -82,6 +82,23 @@ class ConsumerServiceTest {
         Assertions.assertThat(consumerAccount.address).isEqualTo(expectedConsumerAccount.address)
         Assertions.assertThat(consumerAccount.solarPlan).isEqualTo(expectedConsumerAccount.solarPlan)
         Assertions.assertThat(consumerAccount.mssl).isEqualTo(expectedConsumerAccount.mssl)
+    }
 
+    @Test
+    fun updateConsumer_updateConsumer() {
+        val solarPlan = SolarPlan.SolarLITE
+        val originalConsumerAccount = ConsumerAccountBuilder().default()
+        val updatedConsumerAccount = ConsumerAccountBuilder(solarPlan = solarPlan).default()
+
+        whenever(consumerAccountRepository.findByMssl(originalConsumerAccount.mssl)).thenReturn(originalConsumerAccount)
+        whenever(consumerAccountRepository.save(updatedConsumerAccount)).thenReturn(updatedConsumerAccount)
+
+        val consumerAccount = consumerService.updateConsumerPlan(originalConsumerAccount.mssl!!, solarPlan)
+
+        verify(consumerAccountRepository).save(updatedConsumerAccount)
+        verify(consumerAccountRepository).findByMssl(originalConsumerAccount.mssl)
+        Assertions.assertThat(consumerAccount.id).isEqualTo(updatedConsumerAccount.id)
+        Assertions.assertThat(consumerAccount.solarPlan).isEqualTo(updatedConsumerAccount.solarPlan)
+        Assertions.assertThat(consumerAccount.mssl).isEqualTo(updatedConsumerAccount.mssl)
     }
 }

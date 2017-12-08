@@ -62,6 +62,6 @@ class GeneratorControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(Helper.serializeToJson(generatorDto)))
                 .andExpect(MockMvcResultMatchers.status().isOk)
-                .andExpect(MockMvcResultMatchers.jsonPath("$.successMessage", Matchers.`is`("Generator Is Successfully Saved")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.successMessage", Matchers.`is`("Generator is successfully saved")))
     }
 }

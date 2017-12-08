@@ -23,6 +23,6 @@ class GeneratorController(val generatorService: GeneratorService) {
     @PostMapping("")
     fun saveGenerator(@Valid @RequestBody generatorAccountDTO: GeneratorAccountDTO): SuccessDTO {
         generatorService.saveNewGenerator(generatorAccountDTO)
-        return SuccessDTO("Generator Is Successfully Saved")
+        return SuccessDTO("Generator is successfully saved")
     }
 }

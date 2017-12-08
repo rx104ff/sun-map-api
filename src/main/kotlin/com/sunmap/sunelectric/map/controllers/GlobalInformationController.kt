@@ -16,6 +16,6 @@ class GlobalInformationController(val globalInformationService: GlobalInformatio
 
     @PostMapping("")
     fun saveGlobalInformation(): SuccessDTO {
-        return SuccessDTO(successMessage = "Global Information Successfully Saved.")
+        return SuccessDTO(successMessage = "Global information successfully saved.")
     }
 }

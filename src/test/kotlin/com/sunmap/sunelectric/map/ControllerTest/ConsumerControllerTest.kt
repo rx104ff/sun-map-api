@@ -1,5 +1,6 @@
 package com.sunmap.sunelectric.map.ControllerTest
 
+import com.sunmap.sunelectric.map.enums.SolarPlan
 import com.sunmap.sunelectric.map.repositories.ConsumerAccountRepository
 import com.sunmap.sunelectric.map.utils.*
 import org.hamcrest.Matchers
@@ -62,7 +63,19 @@ class ConsumerControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(Helper.serializeToJson(consumerDTO)))
                 .andExpect(MockMvcResultMatchers.status().isOk)
-                .andExpect(MockMvcResultMatchers.jsonPath("$.successMessage", Matchers.`is`("Consumer Is Successfully Saved")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.successMessage", Matchers.`is`("Consumer is successfully saved")))
 
+    }
+
+    @Test
+    fun updateConsumerPlan() {
+        val consumerAccount = consumerAccountRepository.save(ConsumerAccountBuilder().default())
+        val solarPlan = SolarPlan.SolarLITE
+
+        mockMvc
+                .perform(MockMvcRequestBuilders.put("/consumer/${consumerAccount.mssl}/$solarPlan")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk)
+                .andExpect(MockMvcResultMatchers.jsonPath("$.successMessage", Matchers.`is`("Consumer's plan is successfully updated")))
     }
 }

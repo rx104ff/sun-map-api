@@ -49,6 +49,6 @@ class GlobalInformationControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(Helper.serializeToJson(globalInformationDTO)))
                 .andExpect(MockMvcResultMatchers.status().isOk)
-                .andExpect(MockMvcResultMatchers.jsonPath("$.successMessage", Matchers.`is`("Global Information Successfully Saved.")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.successMessage", Matchers.`is`("Global information successfully saved.")))
     }
 }
