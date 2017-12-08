@@ -38,7 +38,8 @@ class ConsumerController(val consumerService: ConsumerService) {
     }
 
     @PutMapping("/mssl/{mssl}")
-    fun deleteConsumerByMssl(@PathVariable mssl: String): SuccessDTO {
+    fun removeConsumerByMssl(@PathVariable mssl: String): SuccessDTO {
+        consumerService.removeConsumerByMssl(mssl)
         return SuccessDTO("Consumer is successfully deleted")
     }
 }

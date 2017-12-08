@@ -25,4 +25,10 @@ class GeneratorController(val generatorService: GeneratorService) {
         generatorService.saveNewGenerator(generatorAccountDTO)
         return SuccessDTO("Generator is successfully saved")
     }
+
+    @PutMapping("/id/{id}")
+    fun removeGeneratorByAddress(@PathVariable id: Long):SuccessDTO {
+        generatorService.removeGeneratorById(id)
+        return SuccessDTO("Generator is successfully removed")
+    }
 }

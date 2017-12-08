@@ -5,6 +5,7 @@ import com.sunmap.sunelectric.map.enums.SolarPlan
 import com.sunmap.sunelectric.map.models.ConsumerAccount
 import com.sunmap.sunelectric.map.repositories.ConsumerAccountRepository
 import org.springframework.stereotype.Service
+import javax.validation.constraints.Null
 
 @Service
 class ConsumerService(val consumerAccountRepository: ConsumerAccountRepository) {
@@ -30,7 +31,7 @@ class ConsumerService(val consumerAccountRepository: ConsumerAccountRepository) 
         return consumerAccountRepository.save(consumerAccount)
     }
 
-    fun removeConsumerByMssl(mssl: String): Long {
-        return consumerAccountRepository.removeByMssl(mssl)
+    fun removeConsumerByMssl(mssl: String?): Long {
+        return consumerAccountRepository.removeByMssl(mssl!!)
     }
 }

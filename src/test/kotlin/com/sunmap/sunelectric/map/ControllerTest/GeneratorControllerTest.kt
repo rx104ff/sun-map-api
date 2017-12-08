@@ -15,10 +15,12 @@ import org.springframework.test.context.junit4.SpringRunner
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
+import org.springframework.transaction.annotation.Transactional
 
 @RunWith(SpringRunner::class)
 @SpringBootTest
 @AutoConfigureMockMvc
+@Transactional
 class GeneratorControllerTest {
 
     @Autowired
@@ -63,5 +65,16 @@ class GeneratorControllerTest {
                         .content(Helper.serializeToJson(generatorDto)))
                 .andExpect(MockMvcResultMatchers.status().isOk)
                 .andExpect(MockMvcResultMatchers.jsonPath("$.successMessage", Matchers.`is`("Generator is successfully saved")))
+    }
+
+    @Test
+    fun removeGenerator() {
+        val generatorAccount = generatorAccountRepository.save(GeneratorAccountBuilder(id = null).default())
+
+        mockMvc
+                .perform(MockMvcRequestBuilders.put("/generator/id/${generatorAccount.id}/")
+                        .contentType((MediaType.APPLICATION_JSON)))
+                .andExpect(MockMvcResultMatchers.status().isOk)
+                .andExpect(MockMvcResultMatchers.jsonPath("$.successMessage", Matchers.`is`("Generator is successfully removed")))
     }
 }

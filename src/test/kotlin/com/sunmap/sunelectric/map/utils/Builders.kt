@@ -39,11 +39,15 @@ data class ConsumerAccountDTOBuilder(
     }
 }
 
-data class GeneratorAccountBuilder(
-        private val address: String = "10 Anson, Singapore"
+data class GeneratorAccountBuilder
+(
+        private val id: Long? = null,
+                private
+                val address: String = "10 Anson, Singapore"
 ) {
     fun default(): GeneratorAccount {
         return GeneratorAccount(
+                id = this.id,
                 address = this.address
         )
     }

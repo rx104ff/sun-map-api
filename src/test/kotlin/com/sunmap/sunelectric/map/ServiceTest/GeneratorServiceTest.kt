@@ -15,10 +15,12 @@ import org.mockito.Mock
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.junit4.SpringRunner
+import org.springframework.transaction.annotation.Transactional
 
 @RunWith(SpringRunner::class)
 @SpringBootTest
 @AutoConfigureMockMvc
+@Transactional
 class GeneratorServiceTest {
     @Mock
     lateinit var generatorAccountRepository: GeneratorAccountRepository
@@ -65,11 +67,11 @@ class GeneratorServiceTest {
 
     @Test
     fun removeGenerator_removesGenerator() {
-        val generatorAccount = GeneratorAccountBuilder().default()
-        whenever(generatorAccountRepository.removeByAddress(generatorAccount.address)).thenReturn(1)
+        val generatorAccount = GeneratorAccountBuilder(id = 1).default()
+        whenever(generatorAccountRepository.removeById(generatorAccount.id)).thenReturn(1)
 
-        generatorService.removeGeneratorByAddress(generatorAccount.address!!)
+        generatorService.removeGeneratorById(generatorAccount.id!!)
 
-        verify(generatorAccountRepository).removeByAddress(generatorAccount.address)
+        verify(generatorAccountRepository).removeById(generatorAccount.id)
     }
 }
