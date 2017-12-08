@@ -18,4 +18,12 @@ data class GeneratorAccount(
                 address = address
         )
     }
+
+    companion object {
+        fun fromDto(dto: GeneratorAccountDTO): GeneratorAccount {
+            return GeneratorAccount(
+                    address = dto.address
+            )
+        }
+    }
 }

@@ -1,12 +1,7 @@
 package com.sunmap.sunelectric.map.ControllerTest
 
-import com.nhaarman.mockito_kotlin.verify
-import com.nhaarman.mockito_kotlin.whenever
-import com.sunmap.sunelectric.map.models.ConsumerAccount
-import com.sunmap.sunelectric.map.models.GlobalInformation
 import com.sunmap.sunelectric.map.repositories.ConsumerAccountRepository
 import com.sunmap.sunelectric.map.utils.*
-import org.assertj.core.api.Assertions
 import org.hamcrest.Matchers
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -18,7 +13,6 @@ import org.springframework.test.context.junit4.SpringRunner
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
-import java.time.LocalDateTime
 
 @RunWith(SpringRunner::class)
 @SpringBootTest
@@ -60,7 +54,7 @@ class ConsumerControllerTest {
     }
 
     @Test
-    fun saveNewConsumer_savesNewConsumer() {
+    fun saveNewConsumer() {
         val consumerDTO = ConsumerAccountDTOBuilder().default()
 
         mockMvc

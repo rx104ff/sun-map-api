@@ -2,6 +2,8 @@ package com.sunmap.sunelectric.map.ControllerTest
 
 import com.sunmap.sunelectric.map.repositories.GeneratorAccountRepository
 import com.sunmap.sunelectric.map.utils.GeneratorAccountBuilder
+import com.sunmap.sunelectric.map.utils.GeneratorAccountDTOBuilder
+import com.sunmap.sunelectric.map.utils.Helper
 import org.hamcrest.Matchers
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -49,5 +51,17 @@ class GeneratorControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk)
                 .andExpect(MockMvcResultMatchers.jsonPath("$.address", Matchers.`is`(generatorAccount.address)))
 
+    }
+
+    @Test
+    fun saveNewGenerator() {
+        val generatorDto = GeneratorAccountDTOBuilder().default()
+
+        mockMvc
+                .perform(MockMvcRequestBuilders.post("/generator")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(Helper.serializeToJson(generatorDto)))
+                .andExpect(MockMvcResultMatchers.status().isOk)
+                .andExpect(MockMvcResultMatchers.jsonPath("$.successMessage", Matchers.`is`("Generator Is Successfully Saved")))
     }
 }

@@ -2,9 +2,14 @@ package com.sunmap.sunelectric.map.ServiceTest
 
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
+import com.sunmap.sunelectric.map.models.ConsumerAccount
 import com.sunmap.sunelectric.map.models.GeneratorAccount
 import com.sunmap.sunelectric.map.repositories.GeneratorAccountRepository
 import com.sunmap.sunelectric.map.services.GeneratorService
+import com.sunmap.sunelectric.map.utils.ConsumerAccountBuilder
+import com.sunmap.sunelectric.map.utils.ConsumerAccountDTOBuilder
+import com.sunmap.sunelectric.map.utils.GeneratorAccountBuilder
+import com.sunmap.sunelectric.map.utils.GeneratorAccountDTOBuilder
 import org.assertj.core.api.Assertions
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -47,5 +52,17 @@ class GeneratorServiceTest {
         Assertions.assertThat(generatorAccounts[0].address).isEqualTo(expctedGeneratorAccountOne.address)
         Assertions.assertThat(generatorAccounts[1].address).isEqualTo(expctedGeneratorAccountTwo.address)
 
+    }
+
+    @Test
+    fun saveNewGenerator_savesNewGenerator() {
+        val expectedGeneratorAccount = GeneratorAccountBuilder().default()
+        val generatorAccountDto = GeneratorAccountDTOBuilder().default()
+        whenever(generatorAccountRepository.save(GeneratorAccount.fromDto(generatorAccountDto))).thenReturn(expectedGeneratorAccount)
+
+        val generatorAccount = generatorService.saveNewGenerator(generatorAccountDto)
+
+        verify(generatorAccountRepository).save(GeneratorAccount.fromDto(generatorAccountDto))
+        Assertions.assertThat(generatorAccount.address).isEqualTo(expectedGeneratorAccount.address)
     }
 }

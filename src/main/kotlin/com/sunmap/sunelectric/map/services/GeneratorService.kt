@@ -1,6 +1,7 @@
 package com.sunmap.sunelectric.map.services
 
 import com.sunmap.sunelectric.map.dtos.GeneratorAccountDTO
+import com.sunmap.sunelectric.map.models.GeneratorAccount
 import com.sunmap.sunelectric.map.repositories.GeneratorAccountRepository
 import org.springframework.stereotype.Service
 
@@ -11,6 +12,10 @@ class GeneratorService(val generatorAccountRepository: GeneratorAccountRepositor
     }
 
     fun getAllGenerators(): List<GeneratorAccountDTO> {
-        return generatorAccountRepository.findAll().map{ it.toDto() }
+        return generatorAccountRepository.findAll().map { it.toDto() }
+    }
+
+    fun saveNewGenerator(generatorAccountDTO: GeneratorAccountDTO): GeneratorAccount {
+        return generatorAccountRepository.save(GeneratorAccount.fromDto(generatorAccountDTO))
     }
 }
