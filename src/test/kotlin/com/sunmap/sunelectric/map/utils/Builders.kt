@@ -13,24 +13,28 @@ import java.time.LocalDateTime
 
 data class ConsumerAccountBuilder(
         private val address: String = "145 Robison, Singapore",
-        private val solarPlan: SolarPlan = SolarPlan.SolarPEAK
+        private val solarPlan: SolarPlan = SolarPlan.SolarPEAK,
+        private val mssl: String = "SG0001"
 ) {
     fun default(): ConsumerAccount {
         return ConsumerAccount(
                 address = this.address,
-                solarPlan = this.solarPlan
+                solarPlan = this.solarPlan,
+                mssl = this.mssl
         )
     }
 }
 
 data class ConsumerAccountDTOBuilder(
         private val address: String = "145 Robison, Singapore",
-        private val solarPlan: String = "SolarPEAK"
+        private val solarPlan: String = "SolarPEAK",
+        private val mssl: String = "SG0001"
 ) {
     fun default(): ConsumerAccountDTO {
         return ConsumerAccountDTO(
                 address = this.address,
-                solarPlan = this.solarPlan
+                solarPlan = this.solarPlan,
+                mssl = this.mssl
         )
     }
 }

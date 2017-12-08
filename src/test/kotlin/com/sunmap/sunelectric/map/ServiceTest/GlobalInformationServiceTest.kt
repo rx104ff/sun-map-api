@@ -56,5 +56,4 @@ class GlobalInformationServiceTest {
         assertThat(globalInformation.totalGeneration).isEqualTo(expectedGlobalInformation.totalGeneration)
         assertThat(globalInformation.carbonCredit).isEqualTo(expectedGlobalInformation.carbonCredit)
     }
-
 }
