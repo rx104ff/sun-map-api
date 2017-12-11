@@ -6,6 +6,7 @@ import com.sunmap.sunelectric.map.models.ConsumerAccount
 import com.sunmap.sunelectric.map.repositories.ConsumerAccountRepository
 import com.sunmap.sunelectric.map.repositories.ConsumptionRepository
 import com.sunmap.sunelectric.map.repositories.GeneratorAccountRepository
+import org.nield.kotlinstatistics.countBy
 import org.springframework.stereotype.Service
 import javax.validation.constraints.Null
 
@@ -35,5 +36,10 @@ class ConsumerService(val consumerAccountRepository: ConsumerAccountRepository) 
 
     fun removeConsumerByMssl(mssl: String?): Long {
         return consumerAccountRepository.removeByMssl(mssl!!)
+    }
+
+    fun countForPlans(): Map<SolarPlan?, Int> {
+        val consumers = consumerAccountRepository.findAll()
+        return consumers.countBy(keySelector = { it.solarPlan })
     }
 }

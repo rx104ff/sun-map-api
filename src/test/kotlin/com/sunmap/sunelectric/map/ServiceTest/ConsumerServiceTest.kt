@@ -95,4 +95,35 @@ class ConsumerServiceTest {
 
         verify(consumerAccountRepository).removeByMssl(consumerAccount.mssl)
     }
+
+    @Test
+    fun countConsumerPlan_countsConsumerPlan() {
+        val expctedConsumerAccount1 = ConsumerAccount(1, "145 Robison, Singapore", SolarPlan.SolarLITE)
+        val expctedConsumerAccount2 = ConsumerAccount(2, "290 Robison, Singapore", SolarPlan.SolarPEAK)
+        val expctedConsumerAccount3 = ConsumerAccount(3, "145 Robison, Singapore", SolarPlan.SolarFLEX)
+        val expctedConsumerAccount4 = ConsumerAccount(4, "290 Robison, Singapore", SolarPlan.SolarFLEX)
+        val expctedConsumerAccount5 = ConsumerAccount(5, "145 Robison, Singapore", SolarPlan.SolarLITE)
+        val expctedConsumerAccount6 = ConsumerAccount(6, "290 Robison, Singapore", SolarPlan.SolarPEAK)
+        val expctedConsumerAccount7 = ConsumerAccount(7, "145 Robison, Singapore", SolarPlan.SolarLITE)
+        val expctedConsumerAccount8 = ConsumerAccount(8, "290 Robison, Singapore", SolarPlan.SolarPEAK)
+        val expctedConsumerAccount9 = ConsumerAccount(9, "145 Robison, Singapore", SolarPlan.SolarLITE)
+
+        whenever(consumerAccountRepository.findAll()).thenReturn(listOf(
+                expctedConsumerAccount1,
+                expctedConsumerAccount2,
+                expctedConsumerAccount3,
+                expctedConsumerAccount4,
+                expctedConsumerAccount5,
+                expctedConsumerAccount6,
+                expctedConsumerAccount7,
+                expctedConsumerAccount8,
+                expctedConsumerAccount9))
+
+        val solarPlanCount = consumerService.countForPlans()
+
+        verify(consumerAccountRepository).findAll()
+        Assertions.assertThat(solarPlanCount.get(SolarPlan.SolarFLEX)).isEqualTo(2)
+        Assertions.assertThat(solarPlanCount.get(SolarPlan.SolarLITE)).isEqualTo(4)
+        Assertions.assertThat(solarPlanCount.get(SolarPlan.SolarPEAK)).isEqualTo(3)
+    }
 }
