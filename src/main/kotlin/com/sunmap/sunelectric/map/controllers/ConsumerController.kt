@@ -42,4 +42,9 @@ class ConsumerController(val consumerService: ConsumerService) {
         consumerService.removeConsumerByMssl(mssl)
         return SuccessDTO("Consumer is successfully deleted")
     }
+
+    @GetMapping("/countPlans")
+    fun countConsumerPlans(): Map<SolarPlan?, Int> {
+        return consumerService.countForPlans()
+    }
 }

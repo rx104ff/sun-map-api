@@ -1,10 +1,11 @@
 package com.sunmap.sunelectric.map.ControllerTest
 
-import com.nhaarman.mockito_kotlin.mock
 import com.sunmap.sunelectric.map.enums.SolarPlan
+import com.sunmap.sunelectric.map.models.ConsumerAccount
 import com.sunmap.sunelectric.map.repositories.ConsumerAccountRepository
 import com.sunmap.sunelectric.map.utils.*
 import org.hamcrest.Matchers
+import org.hibernate.mapping.Map
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
@@ -119,5 +120,28 @@ class ConsumerControllerTest {
                         .contentType((MediaType.APPLICATION_JSON)))
                 .andExpect(MockMvcResultMatchers.status().isOk)
                 .andExpect(MockMvcResultMatchers.jsonPath("$.successMessage", Matchers.`is`("Consumer is successfully deleted")))
+    }
+
+    @Test
+    fun countSolarPlans() {
+        consumerAccountRepository.save(ConsumerAccount(1, "145 Robison, Singapore", SolarPlan.SolarLITE, "SG0001"))
+        consumerAccountRepository.save(ConsumerAccount(2, "290 Robison, Singapore", SolarPlan.SolarPEAK, "SG0002"))
+        consumerAccountRepository.save(ConsumerAccount(3, "145 Robison, Singapore", SolarPlan.SolarFLEX, "SG0003"))
+        consumerAccountRepository.save(ConsumerAccount(4, "290 Robison, Singapore", SolarPlan.SolarFLEX, "SG0004"))
+        consumerAccountRepository.save(ConsumerAccount(5, "145 Robison, Singapore", SolarPlan.SolarLITE, "SG0005"))
+        consumerAccountRepository.save(ConsumerAccount(6, "290 Robison, Singapore", SolarPlan.SolarPEAK, "SG0006"))
+        consumerAccountRepository.save(ConsumerAccount(7, "145 Robison, Singapore", SolarPlan.SolarLITE, "SG0007"))
+        consumerAccountRepository.save(ConsumerAccount(8, "290 Robison, Singapore", SolarPlan.SolarPEAK, "SG0008"))
+        consumerAccountRepository.save(ConsumerAccount(9, "145 Robison, Singapore", SolarPlan.SolarLITE, "SG0009"))
+
+        mockMvc
+                .perform(MockMvcRequestBuilders.get("/consumer/countPlans")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk)
+                .andExpect(MockMvcResultMatchers.jsonPath("$.SolarFLEX", Matchers.equalTo(2)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.SolarPEAK", Matchers.equalTo(3)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.SolarLITE", Matchers.equalTo(4)))
+
+
     }
 }

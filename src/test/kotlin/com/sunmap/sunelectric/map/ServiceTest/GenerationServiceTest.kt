@@ -3,8 +3,11 @@ package com.sunmap.sunelectric.map.ServiceTest
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
 import com.sunmap.sunelectric.map.repositories.ConsumptionRepository
+import com.sunmap.sunelectric.map.repositories.GenerationRepository
 import com.sunmap.sunelectric.map.services.ConsumptionService
+import com.sunmap.sunelectric.map.services.GenerationService
 import com.sunmap.sunelectric.map.utils.ConsumptionBuilder
+import com.sunmap.sunelectric.map.utils.GenerationBuilder
 import org.assertj.core.api.Assertions
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -22,23 +25,23 @@ import java.time.LocalDateTime
 @Transactional
 class GenerationServiceTest {
     @Mock
-    lateinit var consumptionRepository: ConsumptionRepository
+    lateinit var generationRepository: GenerationRepository
 
     @InjectMocks
-    lateinit var consumptionService: ConsumptionService
+    lateinit var generationService: GenerationService
 
     @Test
     fun getSolarGenerationByCity() {
         val cityName = "Singapore"
-        val consumptionOne = ConsumptionBuilder(dateTime = LocalDateTime.now()).default()
-        val consumptionTwo = ConsumptionBuilder(dateTime = LocalDateTime.now()).default()
+        val generationOne = GenerationBuilder(dateTime = LocalDateTime.now()).default()
+        val generationTwo = GenerationBuilder(dateTime = LocalDateTime.now()).default()
 
-        whenever(consumptionRepository.findAllByCity(cityName)).thenReturn(listOf(consumptionOne, consumptionTwo))
+        whenever(generationRepository.findAllByCity(cityName)).thenReturn(listOf(generationOne, generationTwo))
 
-        val singaporeHourlyConsumption = consumptionService.getSolarHourlyConsumptionByCity(cityName)
+        val singaporeHourlyGeneration = generationService.getSolarHourlyGenerationByCity(cityName)
 
-        verify(consumptionRepository).findAllByCity(cityName)
-        Assertions.assertThat(singaporeHourlyConsumption.toLong())
-                .isEqualTo(consumptionOne.hourlySolarConsumption!!.plus(consumptionTwo.hourlySolarConsumption!!))
+        verify(generationRepository).findAllByCity(cityName)
+        Assertions.assertThat(singaporeHourlyGeneration.toLong())
+                .isEqualTo(generationOne.hourlySolarGeneration!!.plus(generationTwo.hourlySolarGeneration!!))
     }
 }
