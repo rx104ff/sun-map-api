@@ -44,18 +44,18 @@ class ConsumerControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$[1].solarPlan", Matchers.`is`(consumerAccountTwo.solarPlan!!.toString())))
     }
 
-//    @Test
-//    fun getConsumerByAddress() {
-//        val consumerAccount = consumerAccountRepository.save(ConsumerAccountBuilder().default())
-//
-//        mockMvc
-//                .perform(MockMvcRequestBuilders.get("/consumer/email/${consumerAccount.address}")
-//                        .contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(MockMvcResultMatchers.status().isOk)
-//                .andExpect(MockMvcResultMatchers.jsonPath("$.address", Matchers.`is`(consumerAccount.address)))
-//                .andExpect(MockMvcResultMatchers.jsonPath("$.solarPlan", Matchers.`is`(consumerAccount.solarPlan!!.toString())))
-//
-//    }
+    @Test
+    fun getConsumerByAddress() {
+        val consumerAccount = consumerAccountRepository.save(ConsumerAccountBuilder().default())
+
+        mockMvc
+                .perform(MockMvcRequestBuilders.get("/consumer/address/${consumerAccount.address}")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk)
+                .andExpect(MockMvcResultMatchers.jsonPath("$.address", Matchers.`is`(consumerAccount.address)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.solarPlan", Matchers.`is`(consumerAccount.solarPlan!!.toString())))
+
+    }
 
     @Test
     fun getConsumerByMssl() {

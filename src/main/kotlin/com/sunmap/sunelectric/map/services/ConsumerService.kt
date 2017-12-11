@@ -12,9 +12,9 @@ import javax.validation.constraints.Null
 
 @Service
 class ConsumerService(val consumerAccountRepository: ConsumerAccountRepository) {
-//    fun getConsumerByAddress(address: String): ConsumerAccountDTO {
-//        return consumerAccountRepository.findByAddress(address).toDto()
-//    }
+    fun getConsumerByAddress(address: String): ConsumerAccountDTO {
+        return consumerAccountRepository.findByAddress(address).toDto()
+    }
 
     fun getConsumerByMssl(mssl: String): ConsumerAccountDTO {
         return consumerAccountRepository.findByMssl(mssl).toDto()

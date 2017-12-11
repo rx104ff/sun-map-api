@@ -15,10 +15,10 @@ class ConsumerController(val consumerService: ConsumerService) {
         return consumerService.getAllConsumers()
     }
 
-//    @GetMapping("/address/{consumerAddress}")
-//    fun getConsumerByAddress(@PathVariable consumerAddress: String): ConsumerAccountDTO {
-//        return consumerService.getConsumerByAddress(consumerAddress)
-//    }
+    @GetMapping("/address/{consumerAddress}")
+    fun getConsumerByAddress(@PathVariable consumerAddress: String): ConsumerAccountDTO {
+        return consumerService.getConsumerByAddress(consumerAddress)
+    }
 
     @GetMapping("/mssl/{mssl}")
     fun getConsumerByMssl(@PathVariable mssl: String): ConsumerAccountDTO {
