@@ -2,11 +2,8 @@ package com.sunmap.sunelectric.map.ServiceTest
 
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
-import com.sunmap.sunelectric.map.repositories.ConsumptionRepository
 import com.sunmap.sunelectric.map.repositories.GenerationRepository
-import com.sunmap.sunelectric.map.services.ConsumptionService
 import com.sunmap.sunelectric.map.services.GenerationService
-import com.sunmap.sunelectric.map.utils.ConsumptionBuilder
 import com.sunmap.sunelectric.map.utils.GenerationBuilder
 import org.assertj.core.api.Assertions
 import org.junit.Test
@@ -42,6 +39,6 @@ class GenerationServiceTest {
 
         verify(generationRepository).findAllByCity(cityName)
         Assertions.assertThat(singaporeHourlyGeneration.toLong())
-                .isEqualTo(generationOne.hourlySolarGeneration!!.plus(generationTwo.hourlySolarGeneration!!))
+                .isEqualTo(generationOne.solarGeneration!!.plus(generationTwo.solarGeneration!!))
     }
 }

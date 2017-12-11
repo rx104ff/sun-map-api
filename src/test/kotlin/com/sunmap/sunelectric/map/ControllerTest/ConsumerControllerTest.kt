@@ -5,7 +5,6 @@ import com.sunmap.sunelectric.map.models.ConsumerAccount
 import com.sunmap.sunelectric.map.repositories.ConsumerAccountRepository
 import com.sunmap.sunelectric.map.utils.*
 import org.hamcrest.Matchers
-import org.hibernate.mapping.Map
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired

@@ -2,7 +2,6 @@ package com.sunmap.sunelectric.map.services
 
 import com.sunmap.sunelectric.map.dtos.GeneratorAccountDTO
 import com.sunmap.sunelectric.map.models.GeneratorAccount
-import com.sunmap.sunelectric.map.repositories.ConsumptionRepository
 import com.sunmap.sunelectric.map.repositories.GeneratorAccountRepository
 import org.springframework.stereotype.Service
 

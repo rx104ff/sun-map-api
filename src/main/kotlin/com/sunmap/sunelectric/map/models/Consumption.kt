@@ -1,7 +1,9 @@
 package com.sunmap.sunelectric.map.models
 
 import com.sunmap.sunelectric.map.dtos.ConsumptionDTO
+import com.sunmap.sunelectric.map.enums.Duration
 import javax.persistence.*
+import kotlin.coroutines.experimental.suspendCoroutine
 
 @Entity
 data class Consumption(
@@ -10,10 +12,16 @@ data class Consumption(
         val id: Long? = null,
 
         @Column(nullable = false)
-        val hourlySolarConsumption: Long? = null,
+        val solarConsumption: Long? = null,
 
         @Column(nullable = false)
-        val hourlyTotalConsumption: Long? = null,
+        val totalConsumption: Long? = null,
+
+        @Column(nullable = false)
+        val duration: Duration? = null,
+
+        @Column(nullable = false)
+        val consumptionDuration: Duration? = null,
 
         @Column(nullable = false)
         val city: String? = null,
@@ -25,8 +33,9 @@ data class Consumption(
 ) {
     fun toDto(): ConsumptionDTO {
         return ConsumptionDTO(
-                hourlySolarConsumption = hourlySolarConsumption,
-                hourlyTotalConsumption = hourlyTotalConsumption,
+                solarConsumption = solarConsumption,
+                totalConsumption = totalConsumption,
+                duration =  duration,
                 city = city,
                 dateTime = dateTime
         )
@@ -35,8 +44,9 @@ data class Consumption(
     companion object {
         fun fromDto(dto: ConsumptionDTO): Consumption {
             return Consumption(
-                    hourlyTotalConsumption = dto.hourlyTotalConsumption,
-                    hourlySolarConsumption = dto.hourlySolarConsumption,
+                    totalConsumption = dto.totalConsumption,
+                    solarConsumption = dto.solarConsumption,
+                    duration = dto.duration,
                     dateTime = dto.dateTime
             )
         }

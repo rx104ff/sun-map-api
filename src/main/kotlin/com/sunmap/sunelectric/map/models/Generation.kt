@@ -1,6 +1,7 @@
 package com.sunmap.sunelectric.map.models
 
 import com.sunmap.sunelectric.map.dtos.GenerationDTO
+import com.sunmap.sunelectric.map.enums.Duration
 import javax.persistence.*
 
 @Entity
@@ -10,7 +11,10 @@ data class Generation(
         val id: Long? = null,
 
         @Column(nullable = false)
-        val hourlySolarGeneration: Long? = null,
+        val solarGeneration: Long? = null,
+
+        @Column(nullable = false)
+        val duration: Duration? = null,
 
         @Column(nullable = false)
         val city: String? = null,
@@ -21,8 +25,9 @@ data class Generation(
 ) {
     fun toDto(): GenerationDTO {
         return GenerationDTO(
-                hourlySolarGeneration = hourlySolarGeneration,
+                hourlySolarGeneration = solarGeneration,
                 city = city,
+                duration = duration,
                 dateTime = dateTime
         )
     }
@@ -30,7 +35,8 @@ data class Generation(
     companion object {
         fun fromDto(dto: GenerationDTO): Generation {
             return Generation(
-                    hourlySolarGeneration = dto.hourlySolarGeneration,
+                    solarGeneration = dto.hourlySolarGeneration,
+                    duration = dto.duration,
                     dateTime = dto.dateTime
             )
         }

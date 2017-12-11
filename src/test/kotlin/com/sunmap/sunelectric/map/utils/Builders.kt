@@ -3,6 +3,7 @@ package com.sunmap.sunelectric.map.utils
 import com.sunmap.sunelectric.map.dtos.ConsumerAccountDTO
 import com.sunmap.sunelectric.map.dtos.GeneratorAccountDTO
 import com.sunmap.sunelectric.map.dtos.GlobalInformationDTO
+import com.sunmap.sunelectric.map.enums.Duration
 import com.sunmap.sunelectric.map.enums.SolarPlan
 import com.sunmap.sunelectric.map.models.*
 import java.time.LocalDateTime
@@ -108,15 +109,17 @@ data class GlobalInformationBuilder(
 }
 
 data class ConsumptionBuilder(
-        private val hourlyTotalConsumption: Long = 100000,
-        private val hourlySolarConsumption: Long = 20000,
+        private val totalConsumption: Long = 100000,
+        private val solarConsumption: Long = 20000,
         private val city: String = "Singapore",
+        private val duration: Duration? = null,
         private val dateTime: LocalDateTime? = null
 ) {
     fun default(): Consumption {
         return Consumption(
-                hourlyTotalConsumption = this.hourlyTotalConsumption,
-                hourlySolarConsumption = this.hourlySolarConsumption,
+                totalConsumption = this.totalConsumption,
+                solarConsumption = this.solarConsumption,
+                duration = this.duration,
                 city = this.city,
                 dateTime = this.dateTime.toString()
         )
@@ -124,14 +127,16 @@ data class ConsumptionBuilder(
 }
 
 data class GenerationBuilder(
-        private val hourlySolarGeneration: Long = 20000,
+        private val solarGeneration: Long = 20000,
         private val city: String = "Singapore",
+        private val duration: Duration? = null,
         private val dateTime: LocalDateTime? = null
 ) {
     fun default(): Generation {
         return Generation(
-                hourlySolarGeneration = this.hourlySolarGeneration,
+                solarGeneration = this.solarGeneration,
                 city = this.city,
+                duration = this.duration,
                 dateTime = this.dateTime.toString()
         )
     }
