@@ -5,6 +5,7 @@ import com.sunmap.sunelectric.map.enums.SolarPlan
 import javax.persistence.*
 
 @Entity
+@Table(name = "consumer")
 data class ConsumerAccount(
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,13 +18,17 @@ data class ConsumerAccount(
         var solarPlan: SolarPlan? = null,
 
         @Column(nullable = false)
-        var mssl: String? = null
+        var mssl: String? = null,
+
+        @ManyToMany(mappedBy = "consumerAccounts")
+        var generatorAccounts: List<GeneratorAccount> = mutableListOf()
 ) {
     fun toDto(): ConsumerAccountDTO {
         return ConsumerAccountDTO(
                 address = address,
                 solarPlan = solarPlan.toString(),
-                mssl = mssl
+                mssl = mssl,
+                generatorAddress = generatorAccounts.map { it.address!! }
         )
     }
 

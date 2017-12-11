@@ -5,6 +5,7 @@ import com.nhaarman.mockito_kotlin.whenever
 import com.sunmap.sunelectric.map.models.GeneratorAccount
 import com.sunmap.sunelectric.map.repositories.GeneratorAccountRepository
 import com.sunmap.sunelectric.map.services.GeneratorService
+import com.sunmap.sunelectric.map.utils.ConsumerAccountBuilder
 import com.sunmap.sunelectric.map.utils.GeneratorAccountBuilder
 import com.sunmap.sunelectric.map.utils.GeneratorAccountDTOBuilder
 import org.assertj.core.api.Assertions
@@ -29,14 +30,21 @@ class GeneratorServiceTest {
     lateinit var generatorService: GeneratorService
 
     @Test
-    fun getGeneratorByEmail_getsGenerator() {
-        val expctedGeneratorAccount = GeneratorAccount(1, "145 Robison, Singapore")
-        whenever(generatorAccountRepository.findByAddress(expctedGeneratorAccount.address!!)).thenReturn(expctedGeneratorAccount)
+    fun getGeneratorByAddress_getsGenerator() {
+        val consumerAccountOne = ConsumerAccountBuilder().default()
+        val consumerAccountTwo = ConsumerAccountBuilder(address = "146 Robison, Singapore").default()
+        val consumerAccountThree = ConsumerAccountBuilder(address = "147 Robison, Singapore").default()
+        val expectedGeneratorAccount = GeneratorAccountBuilder().withConsumerAccounts(listOf(
+                consumerAccountOne,
+                consumerAccountTwo,
+                consumerAccountThree))
+        whenever(generatorAccountRepository.findByAddress(expectedGeneratorAccount.address)).thenReturn(expectedGeneratorAccount)
 
-        val generatorAccount = generatorService.getGeneratorByAddress(expctedGeneratorAccount.address!!)
+        val generatorAccount = generatorService.getGeneratorByAddress(expectedGeneratorAccount.address!!)
 
-        verify(generatorAccountRepository).findByAddress(expctedGeneratorAccount.address!!)
-        Assertions.assertThat(generatorAccount.address).isEqualTo(expctedGeneratorAccount.address)
+        verify(generatorAccountRepository).findByAddress(expectedGeneratorAccount.address!!)
+        Assertions.assertThat(generatorAccount.address).isEqualTo(expectedGeneratorAccount.address)
+        Assertions.assertThat(generatorAccount.consumerAddress).isEqualTo(listOf(consumerAccountOne.address, consumerAccountTwo.address, consumerAccountThree.address))
     }
 
     @Test
@@ -73,5 +81,19 @@ class GeneratorServiceTest {
         generatorService.removeGeneratorById(generatorAccount.id!!)
 
         verify(generatorAccountRepository).removeById(generatorAccount.id)
+    }
+
+    @Test
+    fun getConsumers_ByGenerator_getsConsumer() {
+        val consumerAccountOne = ConsumerAccountBuilder().default()
+        val consumerAccountTwo = ConsumerAccountBuilder(address = "146 Robison, Singapore").default()
+        val consumerAccountThree = ConsumerAccountBuilder(address = "147 Robison, Singapore").default()
+        val generatorAccount = GeneratorAccountBuilder().withConsumerAccounts(listOf(
+                consumerAccountOne,
+                consumerAccountTwo,
+                consumerAccountThree))
+        whenever(generatorAccountRepository.findByAddress(generatorAccount.address)).thenReturn(generatorAccount)
+
+
     }
 }

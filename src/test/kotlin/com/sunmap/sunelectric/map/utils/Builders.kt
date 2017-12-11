@@ -4,11 +4,7 @@ import com.sunmap.sunelectric.map.dtos.ConsumerAccountDTO
 import com.sunmap.sunelectric.map.dtos.GeneratorAccountDTO
 import com.sunmap.sunelectric.map.dtos.GlobalInformationDTO
 import com.sunmap.sunelectric.map.enums.SolarPlan
-import com.sunmap.sunelectric.map.models.ConsumerAccount
-import com.sunmap.sunelectric.map.models.GeneratorAccount
-import com.sunmap.sunelectric.map.models.GlobalInformation
-import org.apache.tomcat.jni.Time
-import java.util.*
+import com.sunmap.sunelectric.map.models.*
 import java.time.LocalDateTime
 
 data class ConsumerAccountBuilder(
@@ -21,6 +17,15 @@ data class ConsumerAccountBuilder(
                 address = this.address,
                 solarPlan = this.solarPlan,
                 mssl = this.mssl
+        )
+    }
+
+    fun withGeneratorAccounts(generatorAccounts: List<GeneratorAccount>): ConsumerAccount {
+        return ConsumerAccount(
+                address = this.address,
+                solarPlan = this.solarPlan,
+                mssl = this.mssl,
+                generatorAccounts = generatorAccounts
         )
     }
 }
@@ -42,13 +47,20 @@ data class ConsumerAccountDTOBuilder(
 data class GeneratorAccountBuilder
 (
         private val id: Long? = null,
-                private
-                val address: String = "10 Anson, Singapore"
+        private
+        val address: String = "10 Anson, Singapore"
 ) {
     fun default(): GeneratorAccount {
         return GeneratorAccount(
                 id = this.id,
                 address = this.address
+        )
+    }
+
+    fun withConsumerAccounts(consumerAccounts: List<ConsumerAccount>): GeneratorAccount {
+        return GeneratorAccount(
+                address = this.address,
+                consumerAccounts = consumerAccounts
         )
     }
 }
@@ -91,6 +103,36 @@ data class GlobalInformationBuilder(
                 totalGeneration = this.totalGeneration,
                 carbonCredit = this.carbonCredit,
                 date = this.date
+        )
+    }
+}
+
+data class ConsumptionBuilder(
+        private val hourlyTotalConsumption: Long = 100000,
+        private val hourlySolarConsumption: Long = 20000,
+        private val city: String = "Singapore",
+        private val dateTime: LocalDateTime? = null
+) {
+    fun default(): Consumption {
+        return Consumption(
+                hourlyTotalConsumption = this.hourlyTotalConsumption,
+                hourlySolarConsumption = this.hourlySolarConsumption,
+                city = this.city,
+                dateTime = this.dateTime.toString()
+        )
+    }
+}
+
+data class GenerationBuilder(
+        private val hourlySolarGeneration: Long = 20000,
+        private val city: String = "Singapore",
+        private val dateTime: LocalDateTime? = null
+) {
+    fun default(): Generation {
+        return Generation(
+                hourlySolarGeneration = this.hourlySolarGeneration,
+                city = this.city,
+                dateTime = this.dateTime.toString()
         )
     }
 }

@@ -27,29 +27,15 @@ class ConsumerServiceTest {
     lateinit var consumerService: ConsumerService
 
     @Test
-    fun getConsumerByEmail_getsConsumer() {
-        val expctedConsumerAccount = ConsumerAccount(1, "145 Robison, Singapore", SolarPlan.SolarFLEX)
-        whenever(consumerAccountRepository.findByAddress(expctedConsumerAccount.address!!)).thenReturn(expctedConsumerAccount)
-
-        val consumerAccount = consumerService.getConsumerByAddress(expctedConsumerAccount.address!!)
-
-        verify(consumerAccountRepository).findByAddress(expctedConsumerAccount.address!!)
-        Assertions.assertThat(consumerAccount.address).isEqualTo(expctedConsumerAccount.address)
-        Assertions.assertThat(consumerAccount.solarPlan).isEqualTo(expctedConsumerAccount.solarPlan.toString())
-
-    }
-
-    @Test
     fun getConsumerByMssl_getsConsumer() {
         val expctedConsumerAccount = ConsumerAccountBuilder().default()
-        whenever(consumerAccountRepository.findByAddress(expctedConsumerAccount.address!!)).thenReturn(expctedConsumerAccount)
+        whenever(consumerAccountRepository.findByMssl(expctedConsumerAccount.mssl!!)).thenReturn(expctedConsumerAccount)
 
-        val consumerAccount = consumerService.getConsumerByAddress(expctedConsumerAccount.address!!)
+        val consumerAccount = consumerService.getConsumerByMssl(expctedConsumerAccount.mssl!!)
 
-        verify(consumerAccountRepository).findByAddress(expctedConsumerAccount.address!!)
+        verify(consumerAccountRepository).findByMssl(expctedConsumerAccount.mssl!!)
         Assertions.assertThat(consumerAccount.address).isEqualTo(expctedConsumerAccount.address)
         Assertions.assertThat(consumerAccount.solarPlan).isEqualTo(expctedConsumerAccount.solarPlan.toString())
-
     }
 
     @Test

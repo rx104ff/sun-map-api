@@ -15,6 +15,7 @@ import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 import org.hamcrest.Matchers
+import java.time.LocalDateTime
 
 @RunWith(SpringRunner::class)
 @SpringBootTest
@@ -29,7 +30,7 @@ class GlobalInformationControllerTest {
 
     @Test
     fun getGlobalInformation() {
-        val expectedGlobalInformation = globalInformationRepository.save(GlobalInformation(totalConsumption = 1000, totalGeneration = 2000, carbonCredit = 20))
+        val expectedGlobalInformation = globalInformationRepository.save(GlobalInformation(totalConsumption = 1000, totalGeneration = 2000, carbonCredit = 20, date = LocalDateTime.now()))
 
         mockMvc
                 .perform(MockMvcRequestBuilders.get("/global")
