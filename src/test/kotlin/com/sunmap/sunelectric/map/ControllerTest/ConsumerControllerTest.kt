@@ -59,7 +59,12 @@ class ConsumerControllerTest {
 
     @Test
     fun getConsumerByMssl() {
-        val consumerAccount = consumerAccountRepository.save(ConsumerAccountBuilder().default())
+        val generatorAccountOne = GeneratorAccountBuilder().default()
+        val generatorAccountTwo = GeneratorAccountBuilder(address = "146 Robison, Singapore").default()
+        val generatorAccountThree = GeneratorAccountBuilder(address = "147 Robison, Singapore").default()
+        val consumerAccount = consumerAccountRepository.save(ConsumerAccountBuilder().withGeneratorAccounts(
+                listOf(generatorAccountOne, generatorAccountTwo, generatorAccountThree)
+        ))
 
         mockMvc
                 .perform(MockMvcRequestBuilders.get("/consumer/mssl/${consumerAccount.mssl}")
@@ -68,6 +73,9 @@ class ConsumerControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.address", Matchers.`is`(consumerAccount.address)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.solarPlan", Matchers.`is`(consumerAccount.solarPlan!!.toString())))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.mssl", Matchers.`is`(consumerAccount.mssl)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.generatorAddress[0]", Matchers.`is`(consumerAccount.generatorAccounts[0].address)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.generatorAddress[1]", Matchers.`is`(consumerAccount.generatorAccounts[1].address)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.generatorAddress[2]", Matchers.`is`(consumerAccount.generatorAccounts[2].address)))
 
     }
 

@@ -1,6 +1,7 @@
 package com.sunmap.sunelectric.map.ControllerTest
 
 import com.sunmap.sunelectric.map.repositories.GeneratorAccountRepository
+import com.sunmap.sunelectric.map.utils.ConsumerAccountBuilder
 import com.sunmap.sunelectric.map.utils.GeneratorAccountBuilder
 import com.sunmap.sunelectric.map.utils.GeneratorAccountDTOBuilder
 import com.sunmap.sunelectric.map.utils.Helper
@@ -45,13 +46,23 @@ class GeneratorControllerTest {
 
     @Test
     fun getGeneratorByAddress() {
-        val generatorAccount = generatorAccountRepository.save(GeneratorAccountBuilder().default())
+        val consumerAccountOne = ConsumerAccountBuilder().default()
+        val consumerAccountTwo = ConsumerAccountBuilder(address = "146 Robison, Singapore").default()
+        val consumerAccountThree = ConsumerAccountBuilder(address = "147 Robison, Singapore").default()
+        val expectedGeneratorAccount = GeneratorAccountBuilder().withConsumerAccounts(listOf(
+                consumerAccountOne,
+                consumerAccountTwo,
+                consumerAccountThree))
+        val generatorAccount = generatorAccountRepository.save(expectedGeneratorAccount)
 
         mockMvc
                 .perform(MockMvcRequestBuilders.get("/generator/${generatorAccount.address}")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk)
                 .andExpect(MockMvcResultMatchers.jsonPath("$.address", Matchers.`is`(generatorAccount.address)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.consumerAddress[0]", Matchers.`is`(generatorAccount.consumerAccounts[0].address)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.consumerAddress[1]", Matchers.`is`(generatorAccount.consumerAccounts[1].address)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.consumerAddress[2]", Matchers.`is`(generatorAccount.consumerAccounts[2].address)))
 
     }
 
