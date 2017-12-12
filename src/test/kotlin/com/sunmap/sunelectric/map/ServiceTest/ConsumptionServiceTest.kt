@@ -30,128 +30,128 @@ class ConsumptionServiceTest {
 
     @Test
     fun getMonthlyTotalConsumptionByCity() {
-        val duration =  Duration.Month
+        val duration = Duration.Month
         val cityName = "Singapore"
         val consumptionOne = ConsumptionBuilder(dateTime = LocalDateTime.now(), duration = duration).default()
         val consumptionTwo = ConsumptionBuilder(dateTime = LocalDateTime.now(), duration = duration).default()
 
-        whenever(consumptionRepository.findByDurationAndCity(cityName, duration)).thenReturn(listOf(consumptionOne, consumptionTwo))
+        whenever(consumptionRepository.findTop24ByDurationAndCityOrderByDateTimeDesc(cityName, duration)).thenReturn(listOf(consumptionOne, consumptionTwo))
 
         val singaporeMonthlyConsumption = consumptionService.getTotalMonthlyConsumptionByCity(cityName)
 
-        verify(consumptionRepository).findByDurationAndCity(cityName, duration)
+        verify(consumptionRepository).findTop24ByDurationAndCityOrderByDateTimeDesc(cityName, duration)
         Assertions.assertThat(singaporeMonthlyConsumption.toLong())
                 .isEqualTo(consumptionOne.totalConsumption!!.plus(consumptionTwo.totalConsumption!!))
     }
 
     @Test
     fun getMonthlySolarConsumptionByCity() {
-        val duration =  Duration.Month
+        val duration = Duration.Month
         val cityName = "Singapore"
         val consumptionOne = ConsumptionBuilder(dateTime = LocalDateTime.now(), duration = duration).default()
         val consumptionTwo = ConsumptionBuilder(dateTime = LocalDateTime.now(), duration = duration).default()
 
-        whenever(consumptionRepository.findByDurationAndCity(cityName, duration)).thenReturn(listOf(consumptionOne, consumptionTwo))
+        whenever(consumptionRepository.findTop24ByDurationAndCityOrderByDateTimeDesc(cityName, duration)).thenReturn(listOf(consumptionOne, consumptionTwo))
 
         val singaporeMonthlyConsumption = consumptionService.getSolarMonthlyConsumptionByCity(cityName)
 
-        verify(consumptionRepository).findByDurationAndCity(cityName, duration)
+        verify(consumptionRepository).findTop24ByDurationAndCityOrderByDateTimeDesc(cityName, duration)
         Assertions.assertThat(singaporeMonthlyConsumption.toLong())
                 .isEqualTo(consumptionOne.solarConsumption!!.plus(consumptionTwo.solarConsumption!!))
     }
 
     @Test
     fun getYearlyTotalConsumptionByCity() {
-        val duration =  Duration.Year
+        val duration = Duration.Year
         val cityName = "Singapore"
         val consumptionOne = ConsumptionBuilder(dateTime = LocalDateTime.now(), duration = duration).default()
         val consumptionTwo = ConsumptionBuilder(dateTime = LocalDateTime.now(), duration = duration).default()
 
-        whenever(consumptionRepository.findByDurationAndCity(cityName, duration)).thenReturn(listOf(consumptionOne, consumptionTwo))
+        whenever(consumptionRepository.findByDurationAndCityOrderByDateTimeDesc(cityName, duration)).thenReturn(listOf(consumptionOne, consumptionTwo))
 
         val singaporeYearlyConsumption = consumptionService.getTotalYearlyConsumptionByCity(cityName)
 
-        verify(consumptionRepository).findByDurationAndCity(cityName, duration)
+        verify(consumptionRepository).findByDurationAndCityOrderByDateTimeDesc(cityName, duration)
         Assertions.assertThat(singaporeYearlyConsumption.toLong())
                 .isEqualTo(consumptionOne.totalConsumption!!.plus(consumptionTwo.totalConsumption!!))
     }
 
     @Test
     fun getYearlySolarConsumptionByCity() {
-        val duration =  Duration.Year
+        val duration = Duration.Year
         val cityName = "Singapore"
         val consumptionOne = ConsumptionBuilder(dateTime = LocalDateTime.now(), duration = duration).default()
         val consumptionTwo = ConsumptionBuilder(dateTime = LocalDateTime.now(), duration = duration).default()
 
-        whenever(consumptionRepository.findByDurationAndCity(cityName, duration)).thenReturn(listOf(consumptionOne, consumptionTwo))
+        whenever(consumptionRepository.findByDurationAndCityOrderByDateTimeDesc(cityName, duration)).thenReturn(listOf(consumptionOne, consumptionTwo))
 
         val singaporeYearlyConsumption = consumptionService.getSolarYearlyConsumptionByCity(cityName)
 
-        verify(consumptionRepository).findByDurationAndCity(cityName, duration)
+        verify(consumptionRepository).findByDurationAndCityOrderByDateTimeDesc(cityName, duration)
         Assertions.assertThat(singaporeYearlyConsumption.toLong())
                 .isEqualTo(consumptionOne.solarConsumption!!.plus(consumptionTwo.solarConsumption!!))
     }
 
     @Test
     fun getHourlyotalConsumptionByCity() {
-        val duration =  Duration.Hour
+        val duration = Duration.Hour
         val cityName = "Singapore"
         val consumptionOne = ConsumptionBuilder(dateTime = LocalDateTime.now(), duration = duration).default()
         val consumptionTwo = ConsumptionBuilder(dateTime = LocalDateTime.now(), duration = duration).default()
 
-        whenever(consumptionRepository.findByDurationAndCity(cityName, duration)).thenReturn(listOf(consumptionOne, consumptionTwo))
+        whenever(consumptionRepository.findTop24ByDurationAndCityOrderByDateTimeDesc(cityName, duration)).thenReturn(listOf(consumptionOne, consumptionTwo))
 
         val singaporeHourlyConsumption = consumptionService.getTotalHourlyConsumptionByCity(cityName)
 
-        verify(consumptionRepository).findByDurationAndCity(cityName, duration)
+        verify(consumptionRepository).findTop24ByDurationAndCityOrderByDateTimeDesc(cityName, duration)
         Assertions.assertThat(singaporeHourlyConsumption.toLong())
                 .isEqualTo(consumptionOne.totalConsumption!!.plus(consumptionTwo.totalConsumption!!))
     }
 
     @Test
     fun getHourlySolarConsumptionByCity() {
-        val duration =  Duration.Hour
+        val duration = Duration.Hour
         val cityName = "Singapore"
         val consumptionOne = ConsumptionBuilder(dateTime = LocalDateTime.now(), duration = duration).default()
         val consumptionTwo = ConsumptionBuilder(dateTime = LocalDateTime.now(), duration = duration).default()
 
-        whenever(consumptionRepository.findByDurationAndCity(cityName, duration)).thenReturn(listOf(consumptionOne, consumptionTwo))
+        whenever(consumptionRepository.findTop24ByDurationAndCityOrderByDateTimeDesc(cityName, duration)).thenReturn(listOf(consumptionOne, consumptionTwo))
 
         val singaporeHourlyConsumption = consumptionService.getSolarHourlyConsumptionByCity(cityName)
 
-        verify(consumptionRepository).findByDurationAndCity(cityName, duration)
+        verify(consumptionRepository).findTop24ByDurationAndCityOrderByDateTimeDesc(cityName, duration)
         Assertions.assertThat(singaporeHourlyConsumption.toLong())
                 .isEqualTo(consumptionOne.solarConsumption!!.plus(consumptionTwo.solarConsumption!!))
     }
 
     @Test
     fun getDailyTotalConsumptionByCity() {
-        val duration =  Duration.Day
+        val duration = Duration.Day
         val cityName = "Singapore"
         val consumptionOne = ConsumptionBuilder(dateTime = LocalDateTime.now(), duration = duration).default()
         val consumptionTwo = ConsumptionBuilder(dateTime = LocalDateTime.now(), duration = duration).default()
 
-        whenever(consumptionRepository.findByDurationAndCity(cityName, duration)).thenReturn(listOf(consumptionOne, consumptionTwo))
+        whenever(consumptionRepository.findTop30ByDurationAndCityOrderByDateTimeDesc(cityName, duration)).thenReturn(listOf(consumptionOne, consumptionTwo))
 
         val singaporeDailyConsumption = consumptionService.getTotalDailyConsumptionByCity(cityName)
 
-        verify(consumptionRepository).findByDurationAndCity(cityName, duration)
+        verify(consumptionRepository).findTop30ByDurationAndCityOrderByDateTimeDesc(cityName, duration)
         Assertions.assertThat(singaporeDailyConsumption.toLong())
                 .isEqualTo(consumptionOne.totalConsumption!!.plus(consumptionTwo.totalConsumption!!))
     }
 
     @Test
     fun getDailySolarConsumptionByCity() {
-        val duration =  Duration.Day
+        val duration = Duration.Day
         val cityName = "Singapore"
         val consumptionOne = ConsumptionBuilder(dateTime = LocalDateTime.now(), duration = duration).default()
-        val consumptionTwo = ConsumptionBuilder(dateTime = LocalDateTime.now(), duration = duration).default()
+        val consumptionTwo = ConsumptionBuilder(dateTime = LocalDateTime.of(2010,1,12,20,20), duration = duration).default()
 
-        whenever(consumptionRepository.findByDurationAndCity(cityName, duration)).thenReturn(listOf(consumptionOne, consumptionTwo))
+        whenever(consumptionRepository.findTop30ByDurationAndCityOrderByDateTimeDesc(cityName, duration)).thenReturn(listOf(consumptionOne, consumptionTwo))
 
         val singaporeDailyConsumption = consumptionService.getSolarDailyConsumptionByCity(cityName)
 
-        verify(consumptionRepository).findByDurationAndCity(cityName, duration)
+        verify(consumptionRepository).findTop30ByDurationAndCityOrderByDateTimeDesc(cityName, duration)
         Assertions.assertThat(singaporeDailyConsumption.toLong())
                 .isEqualTo(consumptionOne.solarConsumption!!.plus(consumptionTwo.solarConsumption!!))
     }

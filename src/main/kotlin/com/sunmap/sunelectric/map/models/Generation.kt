@@ -2,6 +2,7 @@ package com.sunmap.sunelectric.map.models
 
 import com.sunmap.sunelectric.map.dtos.GenerationDTO
 import com.sunmap.sunelectric.map.enums.Duration
+import java.time.LocalDateTime
 import javax.persistence.*
 
 @Entity
@@ -20,7 +21,7 @@ data class Generation(
         val city: String? = null,
 
         @Column(nullable = false)
-        val dateTime: String? = null
+        val dateTime: LocalDateTime? = null
 
 ) {
     fun toDto(): GenerationDTO {

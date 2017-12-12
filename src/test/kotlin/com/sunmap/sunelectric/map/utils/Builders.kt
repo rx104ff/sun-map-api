@@ -121,7 +121,7 @@ data class ConsumptionBuilder(
                 solarConsumption = this.solarConsumption,
                 duration = this.duration,
                 city = this.city,
-                dateTime = this.dateTime.toString()
+                dateTime = this.dateTime
         )
     }
 }
@@ -137,7 +137,7 @@ data class GenerationBuilder(
                 solarGeneration = this.solarGeneration,
                 city = this.city,
                 duration = this.duration,
-                dateTime = this.dateTime.toString()
+                dateTime = this.dateTime
         )
     }
 }

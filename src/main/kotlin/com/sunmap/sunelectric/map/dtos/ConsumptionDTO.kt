@@ -9,6 +9,6 @@ data class ConsumptionDTO(
         val totalConsumption: Long? = null,
         val duration: Duration? = null,
         val city: String? = null,
-        val dateTime: String? = null
+        val dateTime: LocalDateTime? = null
 
 )

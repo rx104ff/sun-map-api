@@ -2,6 +2,7 @@ package com.sunmap.sunelectric.map.models
 
 import com.sunmap.sunelectric.map.dtos.ConsumptionDTO
 import com.sunmap.sunelectric.map.enums.Duration
+import java.time.LocalDateTime
 import javax.persistence.*
 import kotlin.coroutines.experimental.suspendCoroutine
 
@@ -27,7 +28,7 @@ data class Consumption(
         val city: String? = null,
 
         @Column(nullable = false)
-        val dateTime: String? = null
+        val dateTime: LocalDateTime? = null
 
 
 ) {

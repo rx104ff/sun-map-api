@@ -7,5 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository
 interface ConsumptionRepository : JpaRepository<Consumption, Long> {
     override fun findAll(): List<Consumption>
     fun findAllByCity(city: String): List<Consumption>
-    fun findByDurationAndCity(city: String, duration: Duration): List<Consumption>
+    fun findByDurationAndCityOrderByDateTimeDesc(city: String, duration: Duration): List<Consumption>
+    fun findTop24ByDurationAndCityOrderByDateTimeDesc(city: String, duration: Duration): List<Consumption>
+    fun findTop30ByDurationAndCityOrderByDateTimeDesc(city: String, duration: Duration): List<Consumption>
 }

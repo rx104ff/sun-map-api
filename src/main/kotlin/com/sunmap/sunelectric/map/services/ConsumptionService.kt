@@ -8,42 +8,42 @@ import org.springframework.stereotype.Service
 class ConsumptionService(
         val consumptionRepository: ConsumptionRepository) {
     fun getTotalHourlyConsumptionByCity(city: String): Int {
-        val totalConsumptions: List<Long?> = consumptionRepository.findByDurationAndCity(city, Duration.Hour).map { it.totalConsumption }
+        val totalConsumptions: List<Long?> = consumptionRepository.findTop24ByDurationAndCityOrderByDateTimeDesc(city, Duration.Hour).map { it.totalConsumption }
         return totalConsumptions.sumBy { it!!.toInt() }
     }
 
     fun getSolarHourlyConsumptionByCity(city: String): Int {
-        val solarConsumptions: List<Long?> = consumptionRepository.findByDurationAndCity(city, Duration.Hour).map { it.solarConsumption }
+        val solarConsumptions: List<Long?> = consumptionRepository.findTop24ByDurationAndCityOrderByDateTimeDesc(city, Duration.Hour).map { it.solarConsumption }
         return solarConsumptions.sumBy { it!!.toInt() }
     }
 
     fun getSolarDailyConsumptionByCity(city: String): Int {
-        val solarConsumptions: List<Long?> = consumptionRepository.findByDurationAndCity(city, Duration.Day).map { it.solarConsumption }
+        val solarConsumptions: List<Long?> = consumptionRepository.findTop30ByDurationAndCityOrderByDateTimeDesc(city, Duration.Day).map { it.solarConsumption }
         return solarConsumptions.sumBy { it!!.toInt() }
     }
 
     fun getTotalDailyConsumptionByCity(city: String): Int {
-        val totalConsumptions: List<Long?> = consumptionRepository.findByDurationAndCity(city, Duration.Day).map { it.totalConsumption }
+        val totalConsumptions: List<Long?> = consumptionRepository.findTop30ByDurationAndCityOrderByDateTimeDesc(city, Duration.Day).map { it.totalConsumption }
         return totalConsumptions.sumBy { it!!.toInt() }
     }
 
     fun getSolarMonthlyConsumptionByCity(city: String): Int {
-        val solarConsumptions: List<Long?> = consumptionRepository.findByDurationAndCity(city, Duration.Month).map { it.solarConsumption }
+        val solarConsumptions: List<Long?> = consumptionRepository.findTop24ByDurationAndCityOrderByDateTimeDesc(city, Duration.Month).map { it.solarConsumption }
         return solarConsumptions.sumBy { it!!.toInt() }
     }
 
     fun getTotalMonthlyConsumptionByCity(city: String): Int {
-        val totalConsumptions: List<Long?> = consumptionRepository.findByDurationAndCity(city, Duration.Month).map { it.totalConsumption }
+        val totalConsumptions: List<Long?> = consumptionRepository.findTop24ByDurationAndCityOrderByDateTimeDesc(city, Duration.Month).map { it.totalConsumption }
         return totalConsumptions.sumBy { it!!.toInt() }
     }
 
     fun getSolarYearlyConsumptionByCity(city: String): Int {
-        val solarConsumptions: List<Long?> = consumptionRepository.findByDurationAndCity(city, Duration.Year).map { it.solarConsumption }
+        val solarConsumptions: List<Long?> = consumptionRepository.findByDurationAndCityOrderByDateTimeDesc(city, Duration.Year).map { it.solarConsumption }
         return solarConsumptions.sumBy { it!!.toInt() }
     }
 
     fun getTotalYearlyConsumptionByCity(city: String): Int {
-        val totalConsumptions: List<Long?> = consumptionRepository.findByDurationAndCity(city, Duration.Year).map { it.totalConsumption }
+        val totalConsumptions: List<Long?> = consumptionRepository.findByDurationAndCityOrderByDateTimeDesc(city, Duration.Year).map { it.totalConsumption }
         return totalConsumptions.sumBy { it!!.toInt() }
     }
 }
