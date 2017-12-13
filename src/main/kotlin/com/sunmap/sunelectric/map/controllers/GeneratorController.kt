@@ -1,6 +1,5 @@
 package com.sunmap.sunelectric.map.controllers
 
-import com.sunmap.sunelectric.map.dtos.ConsumerAccountDTO
 import com.sunmap.sunelectric.map.dtos.GeneratorAccountDTO
 import com.sunmap.sunelectric.map.dtos.SuccessDTO
 import com.sunmap.sunelectric.map.services.GeneratorService
