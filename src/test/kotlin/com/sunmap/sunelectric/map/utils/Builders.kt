@@ -11,12 +11,22 @@ import java.time.LocalDateTime
 data class ConsumerAccountBuilder(
         private val address: String = "145 Robison, Singapore",
         private val solarPlan: SolarPlan = SolarPlan.SolarPEAK,
-        private val mssl: String = "SG0001"
+        private val mssl: String = "SG0001",
+        private val mapCoordinates: List<Double>? = null
 ) {
     fun default(): ConsumerAccount {
         return ConsumerAccount(
                 address = this.address,
                 solarPlan = this.solarPlan,
+                mssl = this.mssl
+        )
+    }
+
+    fun withCoordinates(coordinates: List<Double>): ConsumerAccount {
+        return ConsumerAccount(
+                address = this.address,
+                solarPlan = this.solarPlan,
+                mapCoordinates = coordinates,
                 mssl = this.mssl
         )
     }
@@ -40,6 +50,14 @@ data class ConsumerAccountDTOBuilder(
         return ConsumerAccountDTO(
                 address = this.address,
                 solarPlan = this.solarPlan,
+                mssl = this.mssl
+        )
+    }
+    fun withCoordinates(coordinates: List<Double>): ConsumerAccountDTO {
+        return ConsumerAccountDTO(
+                address = this.address,
+                solarPlan = this.solarPlan,
+                mapCoordinates = coordinates,
                 mssl = this.mssl
         )
     }

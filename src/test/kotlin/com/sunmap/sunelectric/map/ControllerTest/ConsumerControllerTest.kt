@@ -123,15 +123,15 @@ class ConsumerControllerTest {
 
     @Test
     fun countSolarPlans() {
-        consumerAccountRepository.save(ConsumerAccount(1, "145 Robison, Singapore", SolarPlan.SolarLITE, "SG0001"))
-        consumerAccountRepository.save(ConsumerAccount(2, "290 Robison, Singapore", SolarPlan.SolarPEAK, "SG0002"))
-        consumerAccountRepository.save(ConsumerAccount(3, "145 Robison, Singapore", SolarPlan.SolarFLEX, "SG0003"))
-        consumerAccountRepository.save(ConsumerAccount(4, "290 Robison, Singapore", SolarPlan.SolarFLEX, "SG0004"))
-        consumerAccountRepository.save(ConsumerAccount(5, "145 Robison, Singapore", SolarPlan.SolarLITE, "SG0005"))
-        consumerAccountRepository.save(ConsumerAccount(6, "290 Robison, Singapore", SolarPlan.SolarPEAK, "SG0006"))
-        consumerAccountRepository.save(ConsumerAccount(7, "145 Robison, Singapore", SolarPlan.SolarLITE, "SG0007"))
-        consumerAccountRepository.save(ConsumerAccount(8, "290 Robison, Singapore", SolarPlan.SolarPEAK, "SG0008"))
-        consumerAccountRepository.save(ConsumerAccount(9, "145 Robison, Singapore", SolarPlan.SolarLITE, "SG0009"))
+        consumerAccountRepository.save(ConsumerAccount(10, "145 Robison, Singapore", SolarPlan.SolarLITE, "SG0001"))
+        consumerAccountRepository.save(ConsumerAccount(20, "290 Robison, Singapore", SolarPlan.SolarPEAK, "SG0002"))
+        consumerAccountRepository.save(ConsumerAccount(30, "145 Robison, Singapore", SolarPlan.SolarFLEX, "SG0003"))
+        consumerAccountRepository.save(ConsumerAccount(40, "290 Robison, Singapore", SolarPlan.SolarFLEX, "SG0004"))
+        consumerAccountRepository.save(ConsumerAccount(50, "145 Robison, Singapore", SolarPlan.SolarLITE, "SG0005"))
+        consumerAccountRepository.save(ConsumerAccount(60, "290 Robison, Singapore", SolarPlan.SolarPEAK, "SG0006"))
+        consumerAccountRepository.save(ConsumerAccount(70, "145 Robison, Singapore", SolarPlan.SolarLITE, "SG0007"))
+        consumerAccountRepository.save(ConsumerAccount(80, "290 Robison, Singapore", SolarPlan.SolarPEAK, "SG0008"))
+        consumerAccountRepository.save(ConsumerAccount(90, "145 Robison, Singapore", SolarPlan.SolarLITE, "SG0009"))
 
         mockMvc
                 .perform(MockMvcRequestBuilders.get("/consumer/countPlans")

@@ -20,6 +20,10 @@ data class ConsumerAccount(
         @Column(nullable = false)
         var mssl: String? = null,
 
+        @ElementCollection
+        @Column(nullable = false)
+        var mapCoordinates: List<Double>? = null,
+
         @ManyToMany(mappedBy = "consumerAccounts")
         var generatorAccounts: List<GeneratorAccount> = mutableListOf()
 ) {
@@ -28,6 +32,7 @@ data class ConsumerAccount(
                 address = address,
                 solarPlan = solarPlan.toString(),
                 mssl = mssl,
+                mapCoordinates = mapCoordinates,
                 generatorAddress = generatorAccounts.map { it.address!! }
         )
     }
@@ -37,6 +42,7 @@ data class ConsumerAccount(
             return ConsumerAccount(
                     address = dto.address,
                     solarPlan =  solarPlanMatcher(dto.solarPlan!!),
+                    mapCoordinates = dto.mapCoordinates,
                     mssl = dto.mssl
             )
         }

@@ -56,13 +56,14 @@ class ConsumerServiceTest {
 
     @Test
     fun saveNewConsumer_savesConsumer() {
-        val expectedConsumerAccount = ConsumerAccountBuilder().default()
-        val consumerAccountDto = ConsumerAccountDTOBuilder().default()
+        val coordinates = listOf(103.808053, 1.351616)
+        val expectedConsumerAccount = ConsumerAccountBuilder().withCoordinates(coordinates)
+        val consumerAccountDto = ConsumerAccountDTOBuilder().withCoordinates(coordinates)
         whenever(consumerAccountRepository.save(ConsumerAccount.fromDto(consumerAccountDto))).thenReturn(expectedConsumerAccount)
-
         val consumerAccount = consumerService.saveNewConsumer(consumerAccountDto)
 
         verify(consumerAccountRepository).save(ConsumerAccount.fromDto(consumerAccountDto))
+        Assertions.assertThat(consumerAccount.mapCoordinates).isEqualTo(coordinates)
         Assertions.assertThat(consumerAccount.address).isEqualTo(expectedConsumerAccount.address)
         Assertions.assertThat(consumerAccount.solarPlan).isEqualTo(expectedConsumerAccount.solarPlan)
         Assertions.assertThat(consumerAccount.mssl).isEqualTo(expectedConsumerAccount.mssl)

@@ -1,0 +1,232 @@
+{
+  "type": "FeatureCollection",
+  "query": [
+    "145",
+    "robinson",
+    "road",
+    "singapore"
+  ],
+  "features": [
+    {
+      "id": "address.1700920600",
+      "type": "Feature",
+      "place_type": [
+        "address"
+      ],
+      "relevance": 1,
+      "properties": {},
+      "text": "Robinson Road",
+      "place_name": "145 Robinson Road, Singapore, Central Singapore 06, Singapore",
+      "center": [
+        103.848507,
+        1.278337
+      ],
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.848507,
+          1.278337
+        ],
+        "interpolated": true,
+        "omitted": true
+      },
+      "address": "145",
+      "context": [
+        {
+          "id": "postcode.9564758949225290",
+          "text": "06"
+        },
+        {
+          "id": "place.8529875252536600",
+          "wikidata": "Q334",
+          "text": "Singapore"
+        },
+        {
+          "id": "region.231868",
+          "short_code": null,
+          "wikidata": "Q2091778",
+          "text": "Central Singapore"
+        },
+        {
+          "id": "country.377",
+          "short_code": "sg",
+          "wikidata": "Q334",
+          "text": "Singapore"
+        }
+      ]
+    },
+    {
+      "id": "place.8529875252536600",
+      "type": "Feature",
+      "place_type": [
+        "place"
+      ],
+      "relevance": 0.5,
+      "properties": {
+        "wikidata": "Q334"
+      },
+      "text": "Singapore",
+      "place_name": "Singapore, North West, Singapore",
+      "bbox": [
+        103.537731087,
+        1.153965446,
+        104.406654211,
+        1.470309806
+      ],
+      "center": [
+        103.808053,
+        1.351616
+      ],
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.808053,
+          1.351616
+        ]
+      },
+      "context": [
+        {
+          "id": "region.217076",
+          "short_code": "SG-03",
+          "wikidata": "Q2228755",
+          "text": "North West"
+        },
+        {
+          "id": "country.377",
+          "short_code": "sg",
+          "wikidata": "Q334",
+          "text": "Singapore"
+        }
+      ]
+    },
+    {
+      "id": "country.377",
+      "type": "Feature",
+      "place_type": [
+        "country"
+      ],
+      "relevance": 0.5,
+      "properties": {
+        "short_code": "sg",
+        "wikidata": "Q334"
+      },
+      "text": "Singapore",
+      "place_name": "Singapore",
+      "bbox": [
+        103.5742042,
+        1.1308576,
+        104.406654,
+        1.4779199
+      ],
+      "center": [
+        103.808053,
+        1.351616
+      ],
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.808053,
+          1.351616
+        ]
+      }
+    },
+    {
+      "id": "address.10448220425369720",
+      "type": "Feature",
+      "place_type": [
+        "address"
+      ],
+      "relevance": 0.5,
+      "properties": {},
+      "text": "Robinson Rd",
+      "place_name": "145 Robinson Rd, Old Hickory, Tennessee 37138, United States",
+      "center": [
+        -86.668172,
+        36.267528
+      ],
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -86.668172,
+          36.267528
+        ],
+        "interpolated": true
+      },
+      "address": "145",
+      "context": [
+        {
+          "id": "neighborhood.290643",
+          "text": "Rayon City Beautification Association"
+        },
+        {
+          "id": "postcode.14275543139273480",
+          "text": "37138"
+        },
+        {
+          "id": "place.10062098766116200",
+          "wikidata": "Q7084198",
+          "text": "Old Hickory"
+        },
+        {
+          "id": "region.27946",
+          "short_code": "US-TN",
+          "wikidata": "Q1509",
+          "text": "Tennessee"
+        },
+        {
+          "id": "country.3145",
+          "short_code": "us",
+          "wikidata": "Q30",
+          "text": "United States"
+        }
+      ]
+    },
+    {
+      "id": "address.10339903778369720",
+      "type": "Feature",
+      "place_type": [
+        "address"
+      ],
+      "relevance": 0.5,
+      "properties": {},
+      "text": "Robinson Rd",
+      "place_name": "145 Robinson Rd, Conroe, Texas 77385, United States",
+      "center": [
+        -95.446607,
+        30.157667
+      ],
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -95.446607,
+          30.157667
+        ]
+      },
+      "address": "145",
+      "context": [
+        {
+          "id": "postcode.10563007905844890",
+          "text": "77385"
+        },
+        {
+          "id": "place.9999307683808430",
+          "wikidata": "Q260282",
+          "text": "Conroe"
+        },
+        {
+          "id": "region.3818",
+          "short_code": "US-TX",
+          "wikidata": "Q1439",
+          "text": "Texas"
+        },
+        {
+          "id": "country.3145",
+          "short_code": "us",
+          "wikidata": "Q30",
+          "text": "United States"
+        }
+      ]
+    }
+  ],
+  "attribution": "NOTICE: © 2017 Mapbox and its suppliers. All rights reserved. Use of this data is subject to the Mapbox Terms of Service (https://www.mapbox.com/about/maps/). This response and the information it contains may not be retained."
+}
