@@ -1,7 +1,6 @@
 package com.sunmap.sunelectric.map.ControllerTest
 
 import com.sunmap.sunelectric.map.models.CityInformation
-import com.sunmap.sunelectric.map.models.GlobalInformation
 import com.sunmap.sunelectric.map.repositories.CityInformationRepository
 import org.hamcrest.Matchers
 import org.junit.Test

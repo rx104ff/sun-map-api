@@ -4,7 +4,6 @@ import com.sunmap.sunelectric.map.dtos.ConsumptionDTO
 import com.sunmap.sunelectric.map.enums.Duration
 import java.time.LocalDateTime
 import javax.persistence.*
-import kotlin.coroutines.experimental.suspendCoroutine
 
 @Entity
 data class Consumption(

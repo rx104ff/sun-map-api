@@ -1,7 +1,6 @@
 package com.sunmap.sunelectric.map.dtos
 
 import java.time.LocalDateTime
-import java.util.*
 
 data class GlobalInformationDTO (
         val totalConsumption: Long? = null,

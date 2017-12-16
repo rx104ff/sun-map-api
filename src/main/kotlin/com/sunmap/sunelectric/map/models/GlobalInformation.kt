@@ -2,7 +2,6 @@ package com.sunmap.sunelectric.map.models
 
 import com.sunmap.sunelectric.map.dtos.GlobalInformationDTO
 import java.time.LocalDateTime
-import java.util.*
 import javax.persistence.Entity
 import javax.persistence.Id
 import javax.persistence.Column

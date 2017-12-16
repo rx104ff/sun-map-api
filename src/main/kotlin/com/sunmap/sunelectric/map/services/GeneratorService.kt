@@ -4,13 +4,7 @@ import com.sunmap.sunelectric.map.dtos.GeneratorAccountDTO
 import com.sunmap.sunelectric.map.models.GeneratorAccount
 import com.sunmap.sunelectric.map.repositories.GeneratorAccountRepository
 import com.sunmap.sunelectric.map.services.helpers.GeoCodeService
-import org.json.JSONArray
 import org.springframework.stereotype.Service
-import java.io.BufferedReader
-import java.io.InputStreamReader
-import java.net.HttpURLConnection
-import java.net.URI
-import java.net.URL
 
 @Service
 class GeneratorService(val generatorAccountRepository: GeneratorAccountRepository,

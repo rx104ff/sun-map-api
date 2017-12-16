@@ -1,7 +1,6 @@
 package com.sunmap.sunelectric.map.ControllerTest
 
 import com.sunmap.sunelectric.map.repositories.GeneratorAccountRepository
-import com.sunmap.sunelectric.map.services.helpers.GeoCodeService
 import com.sunmap.sunelectric.map.utils.ConsumerAccountBuilder
 import com.sunmap.sunelectric.map.utils.GeneratorAccountBuilder
 import com.sunmap.sunelectric.map.utils.GeneratorAccountDTOBuilder

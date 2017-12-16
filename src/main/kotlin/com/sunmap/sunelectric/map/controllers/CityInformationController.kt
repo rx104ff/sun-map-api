@@ -1,10 +1,7 @@
 package com.sunmap.sunelectric.map.controllers
 
 import com.sunmap.sunelectric.map.dtos.CityInformationDTO
-import com.sunmap.sunelectric.map.dtos.GlobalInformationDTO
-import com.sunmap.sunelectric.map.repositories.CityInformationRepository
 import com.sunmap.sunelectric.map.services.CityInformationService
-import com.sunmap.sunelectric.map.services.GlobalInformationService
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping

@@ -1,6 +1,5 @@
 package com.sunmap.sunelectric.map.repositories
 
-import com.sunmap.sunelectric.map.models.Consumption
 import com.sunmap.sunelectric.map.models.Generation
 import org.springframework.data.jpa.repository.JpaRepository
 

@@ -4,18 +4,9 @@ import com.sunmap.sunelectric.map.dtos.ConsumerAccountDTO
 import com.sunmap.sunelectric.map.enums.SolarPlan
 import com.sunmap.sunelectric.map.models.ConsumerAccount
 import com.sunmap.sunelectric.map.repositories.ConsumerAccountRepository
-import com.sunmap.sunelectric.map.repositories.ConsumptionRepository
-import com.sunmap.sunelectric.map.repositories.GeneratorAccountRepository
 import com.sunmap.sunelectric.map.services.helpers.GeoCodeService
-import org.json.JSONArray
 import org.nield.kotlinstatistics.countBy
 import org.springframework.stereotype.Service
-import java.io.BufferedReader
-import java.io.InputStreamReader
-import java.net.HttpURLConnection
-import java.net.URI
-import java.net.URL
-import javax.validation.constraints.Null
 
 @Service
 class ConsumerService(val consumerAccountRepository: ConsumerAccountRepository,
