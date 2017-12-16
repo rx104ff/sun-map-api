@@ -5,6 +5,7 @@ import com.sunmap.sunelectric.map.enums.SolarPlan
 import com.sunmap.sunelectric.map.models.ConsumerAccount
 import com.sunmap.sunelectric.map.repositories.ConsumerAccountRepository
 import com.sunmap.sunelectric.map.services.ConsumerService
+import com.sunmap.sunelectric.map.services.helpers.GeoCodeService
 import com.sunmap.sunelectric.map.utils.ConsumerAccountBuilder
 import com.sunmap.sunelectric.map.utils.ConsumerAccountDTOBuilder
 import org.assertj.core.api.Assertions
@@ -25,6 +26,9 @@ class ConsumerServiceTest {
 
     @InjectMocks
     lateinit var consumerService: ConsumerService
+
+    @Mock
+    lateinit var geoCodeService: GeoCodeService
 
     @Test
     fun getConsumerByMssl_getsConsumer() {
@@ -60,6 +64,7 @@ class ConsumerServiceTest {
         val expectedConsumerAccount = ConsumerAccountBuilder().withCoordinates(coordinates)
         val consumerAccountDto = ConsumerAccountDTOBuilder().withCoordinates(coordinates)
         whenever(consumerAccountRepository.save(ConsumerAccount.fromDto(consumerAccountDto))).thenReturn(expectedConsumerAccount)
+        whenever(geoCodeService.getCoordinates(consumerAccountDto.address!!)).thenReturn(coordinates)
         val consumerAccount = consumerService.saveNewConsumer(consumerAccountDto)
 
         verify(consumerAccountRepository).save(ConsumerAccount.fromDto(consumerAccountDto))
