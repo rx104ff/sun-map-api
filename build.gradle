@@ -1,3 +1,6 @@
+import static sun.jvmstat.monitor.MonitoredVmUtil.commandLine
+import static sun.jvmstat.monitor.MonitoredVmUtil.commandLine
+
 buildscript {
     ext {
         kotlinVersion = '1.1.61'
@@ -46,9 +49,9 @@ repositories {
 
 
 dependencies {
-    compile ('com.google.code.gson:gson:2.3.1')
-    compile ('com.android.volley:volley:1.1.0')
-    compile ('com.github.kittinunf.fuel:fuel:1.2.0') //for JVM
+    compile('com.google.code.gson:gson:2.3.1')
+    compile('com.android.volley:volley:1.1.0')
+    compile('com.github.kittinunf.fuel:fuel:1.2.0') //for JVM
 //	compile 'com.github.kittinunf.fuel:fuel-rxjava:2.1.7' //for RxJava support
 //	compile 'com.github.kittinunf.fuel:fuel-gson:2.8.2' //for Gson support
 //	compile 'com.github.kittinunf.fuel:fuel-jackson:2.9.0' //for Jackson support
@@ -74,4 +77,8 @@ dependencyManagement {
     imports {
         mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
     }
+}
+
+task webpack(type: Exec) {
+    commandLine "$projectDir/node_modules/.bin/webpack", "app/index.js", "$buildDir/js/bundle.js"
 }

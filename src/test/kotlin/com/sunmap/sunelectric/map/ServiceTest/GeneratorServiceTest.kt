@@ -5,6 +5,7 @@ import com.nhaarman.mockito_kotlin.whenever
 import com.sunmap.sunelectric.map.models.GeneratorAccount
 import com.sunmap.sunelectric.map.repositories.GeneratorAccountRepository
 import com.sunmap.sunelectric.map.services.GeneratorService
+import com.sunmap.sunelectric.map.services.helpers.GeoCodeService
 import com.sunmap.sunelectric.map.utils.ConsumerAccountBuilder
 import com.sunmap.sunelectric.map.utils.GeneratorAccountBuilder
 import com.sunmap.sunelectric.map.utils.GeneratorAccountDTOBuilder
@@ -13,8 +14,10 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.InjectMocks
 import org.mockito.Mock
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.test.context.junit4.SpringRunner
 import org.springframework.transaction.annotation.Transactional
 
@@ -25,6 +28,9 @@ import org.springframework.transaction.annotation.Transactional
 class GeneratorServiceTest {
     @Mock
     lateinit var generatorAccountRepository: GeneratorAccountRepository
+
+    @Mock
+    lateinit var geoCodeService: GeoCodeService
 
     @InjectMocks
     lateinit var generatorService: GeneratorService
@@ -63,13 +69,16 @@ class GeneratorServiceTest {
 
     @Test
     fun saveNewGenerator_savesNewGenerator() {
-        val expectedGeneratorAccount = GeneratorAccountBuilder().default()
-        val generatorAccountDto = GeneratorAccountDTOBuilder().default()
+        val coordinates = listOf(103.81, 1.27)
+        val expectedGeneratorAccount = GeneratorAccountBuilder().withCoordinates(coordinates)
+        val generatorAccountDto = GeneratorAccountDTOBuilder().withCoordinates(coordinates)
+        whenever(geoCodeService.getCoordinates(generatorAccountDto.address!!)).thenReturn(coordinates)
         whenever(generatorAccountRepository.save(GeneratorAccount.fromDto(generatorAccountDto))).thenReturn(expectedGeneratorAccount)
 
         val generatorAccount = generatorService.saveNewGenerator(generatorAccountDto)
 
         verify(generatorAccountRepository).save(GeneratorAccount.fromDto(generatorAccountDto))
+//        Assertions.assertThat(generatorAccount.mapCoordinates).isEqualTo(expectedGeneratorAccount.mapCoordinates)
         Assertions.assertThat(generatorAccount.address).isEqualTo(expectedGeneratorAccount.address)
     }
 

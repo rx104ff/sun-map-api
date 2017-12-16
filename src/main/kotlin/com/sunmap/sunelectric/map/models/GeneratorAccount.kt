@@ -14,6 +14,10 @@ data class GeneratorAccount(
         @Column(nullable = false)
         var address: String? = null,
 
+        @ElementCollection
+        @Column(nullable = false)
+        val mapCoordinates: List<Double>? = null,
+
         @ManyToMany(cascade = arrayOf(CascadeType.ALL))
         @JoinTable(name = "consumer_matchup_id",
                 joinColumns = arrayOf(JoinColumn(name = "consumer_matchup_id", referencedColumnName = "id")),
@@ -23,6 +27,7 @@ data class GeneratorAccount(
     fun toDto(): GeneratorAccountDTO {
         return GeneratorAccountDTO(
                 address = address,
+                mapCoordinates = mapCoordinates,
                 consumerAddress = consumerAccounts.map{ it.address!! }
         )
     }
@@ -30,7 +35,8 @@ data class GeneratorAccount(
     companion object {
         fun fromDto(dto: GeneratorAccountDTO): GeneratorAccount {
             return GeneratorAccount(
-                    address = dto.address
+                    address = dto.address,
+                    mapCoordinates = dto.mapCoordinates
             )
         }
     }

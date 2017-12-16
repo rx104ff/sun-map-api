@@ -66,13 +66,20 @@ data class ConsumerAccountDTOBuilder(
 data class GeneratorAccountBuilder
 (
         private val id: Long? = null,
-        private
-        val address: String = "10 Anson, Singapore"
+        private val address: String = "10 Anson Road, Singapore",
+        private val mapCoordinates: List<Double>? = null
 ) {
     fun default(): GeneratorAccount {
         return GeneratorAccount(
                 id = this.id,
                 address = this.address
+        )
+    }
+
+    fun withCoordinates(coordinates: List<Double>): GeneratorAccount {
+        return GeneratorAccount(
+                address = this.address,
+                mapCoordinates = coordinates
         )
     }
 
@@ -85,11 +92,22 @@ data class GeneratorAccountBuilder
 }
 
 data class GeneratorAccountDTOBuilder(
-        private val address: String = "10 Anson, Singapore"
+        private val address: String = "10 Anson Road, Singapore",
+        private val consumerAddress: List<String> =  listOf("145 Robinson Road, Singapore"),
+        private val mapCoordinates: List<Double>? = null
 ) {
     fun default(): GeneratorAccountDTO {
         return GeneratorAccountDTO(
+                consumerAddress = consumerAddress,
                 address = this.address
+        )
+    }
+
+    fun withCoordinates(coordinates: List<Double>): GeneratorAccountDTO {
+        return GeneratorAccountDTO (
+                address = this.address,
+                consumerAddress = consumerAddress,
+                mapCoordinates = coordinates
         )
     }
 }
