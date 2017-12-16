@@ -9,15 +9,16 @@ import com.sunmap.sunelectric.map.models.*
 import java.time.LocalDateTime
 
 data class ConsumerAccountBuilder(
-        private val address: String = "145 Robison, Singapore",
+        private val address: String = "145 Robinson Road, Singapore",
         private val solarPlan: SolarPlan = SolarPlan.SolarPEAK,
         private val mssl: String = "SG0001",
-        private val mapCoordinates: List<Double>? = null
+        private val mapCoordinates: List<Double>? = listOf(103.808053, 1.351616)
 ) {
     fun default(): ConsumerAccount {
         return ConsumerAccount(
                 address = this.address,
                 solarPlan = this.solarPlan,
+                mapCoordinates = mapCoordinates,
                 mssl = this.mssl
         )
     }
@@ -36,6 +37,7 @@ data class ConsumerAccountBuilder(
                 address = this.address,
                 solarPlan = this.solarPlan,
                 mssl = this.mssl,
+                mapCoordinates = this.mapCoordinates,
                 generatorAccounts = generatorAccounts
         )
     }
@@ -67,7 +69,7 @@ data class GeneratorAccountBuilder
 (
         private val id: Long? = null,
         private val address: String = "10 Anson Road, Singapore",
-        private val mapCoordinates: List<Double>? = null
+        private val mapCoordinates: List<Double>? = listOf(103.81, 1.27)
 ) {
     fun default(): GeneratorAccount {
         return GeneratorAccount(

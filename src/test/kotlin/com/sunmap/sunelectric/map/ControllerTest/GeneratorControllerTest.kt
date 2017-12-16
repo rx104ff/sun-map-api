@@ -1,6 +1,7 @@
 package com.sunmap.sunelectric.map.ControllerTest
 
 import com.sunmap.sunelectric.map.repositories.GeneratorAccountRepository
+import com.sunmap.sunelectric.map.services.helpers.GeoCodeService
 import com.sunmap.sunelectric.map.utils.ConsumerAccountBuilder
 import com.sunmap.sunelectric.map.utils.GeneratorAccountBuilder
 import com.sunmap.sunelectric.map.utils.GeneratorAccountDTOBuilder
@@ -32,8 +33,10 @@ class GeneratorControllerTest {
 
     @Test
     fun getAllGenerators() {
-        val generatorAccountOne = generatorAccountRepository.save(GeneratorAccountBuilder().default())
-        val generatorAccountTwo = generatorAccountRepository.save(GeneratorAccountBuilder(address = "20 Anson").default())
+        generatorAccountRepository.deleteAll()
+        val consumerAccount = ConsumerAccountBuilder().default()
+        val generatorAccountOne = generatorAccountRepository.save(GeneratorAccountBuilder().withConsumerAccounts(listOf(consumerAccount)))
+        val generatorAccountTwo = generatorAccountRepository.save(GeneratorAccountBuilder(address = "20 Anson Road, Singapore").withConsumerAccounts(listOf(consumerAccount)))
 
         mockMvc
                 .perform(MockMvcRequestBuilders.get("/generator")
@@ -49,7 +52,7 @@ class GeneratorControllerTest {
         val consumerAccountOne = ConsumerAccountBuilder().default()
         val consumerAccountTwo = ConsumerAccountBuilder(address = "146 Robison, Singapore").default()
         val consumerAccountThree = ConsumerAccountBuilder(address = "147 Robison, Singapore").default()
-        val expectedGeneratorAccount = GeneratorAccountBuilder().withConsumerAccounts(listOf(
+        val expectedGeneratorAccount = GeneratorAccountBuilder(address = "11 Anson Road, Singapore").withConsumerAccounts(listOf(
                 consumerAccountOne,
                 consumerAccountTwo,
                 consumerAccountThree))

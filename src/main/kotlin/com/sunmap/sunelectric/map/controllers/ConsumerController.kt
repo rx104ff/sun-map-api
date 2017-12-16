@@ -50,7 +50,6 @@ class ConsumerController(val consumerService: ConsumerService) {
     @PostMapping("")
     fun saveConsumer(@Valid @RequestBody consumerAccountDTO: ConsumerAccountDTO): SuccessDTO {
         consumerService.saveNewConsumer(consumerAccountDTO)
-
         return SuccessDTO("Consumer is successfully saved")
     }
 

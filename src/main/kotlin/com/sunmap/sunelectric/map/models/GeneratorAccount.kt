@@ -19,9 +19,9 @@ data class GeneratorAccount(
         val mapCoordinates: List<Double>? = null,
 
         @ManyToMany(cascade = arrayOf(CascadeType.ALL))
-        @JoinTable(name = "consumer_matchup_id",
-                joinColumns = arrayOf(JoinColumn(name = "consumer_matchup_id", referencedColumnName = "id")),
-                inverseJoinColumns = arrayOf(JoinColumn(name = "generation_matchup-id", referencedColumnName = "id")))
+        @JoinTable(name = "consumer_accounts",
+                joinColumns = arrayOf(JoinColumn(name = "generator_accounts", referencedColumnName = "id")),
+                inverseJoinColumns = arrayOf(JoinColumn(name = "consumer_accounts", referencedColumnName = "id")))
         var consumerAccounts: List<ConsumerAccount> = mutableListOf()
 ) {
     fun toDto(): GeneratorAccountDTO {

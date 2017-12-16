@@ -3,6 +3,7 @@ package com.sunmap.sunelectric.map.ControllerTest
 import com.sunmap.sunelectric.map.enums.SolarPlan
 import com.sunmap.sunelectric.map.models.ConsumerAccount
 import com.sunmap.sunelectric.map.repositories.ConsumerAccountRepository
+import com.sunmap.sunelectric.map.repositories.GeneratorAccountRepository
 import com.sunmap.sunelectric.map.utils.*
 import org.hamcrest.Matchers
 import org.junit.Test
@@ -29,10 +30,17 @@ class ConsumerControllerTest {
     @Autowired
     lateinit var consumerAccountRepository: ConsumerAccountRepository
 
+    @Autowired
+    lateinit var generatorAccountRepository: GeneratorAccountRepository
+
     @Test
     fun getAllConsumers() {
-        val consumerAccountOne = consumerAccountRepository.save(ConsumerAccountBuilder().default())
-        val consumerAccountTwo = consumerAccountRepository.save(ConsumerAccountBuilder(address = "290 Robinson").default())
+        consumerAccountRepository.deleteAll()
+        val generatorAccount = generatorAccountRepository.save(GeneratorAccountBuilder().default())
+        val consumerAccountOne = consumerAccountRepository.save(ConsumerAccountBuilder()
+                .withGeneratorAccounts(listOf(generatorAccount)))
+        val consumerAccountTwo = consumerAccountRepository.save(ConsumerAccountBuilder(address = "290 Robinson Road, Singapore")
+                .withGeneratorAccounts(listOf(generatorAccount)))
 
         mockMvc
                 .perform(MockMvcRequestBuilders.get("/consumer")
@@ -40,12 +48,17 @@ class ConsumerControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk)
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].address", Matchers.`is`(consumerAccountOne.address)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].solarPlan", Matchers.`is`(consumerAccountOne.solarPlan!!.toString())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].mapCoordinates", Matchers.`is`(consumerAccountOne.mapCoordinates)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].generatorAddress", Matchers.`is`(listOf(generatorAccount.address))))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[1].address", Matchers.`is`(consumerAccountTwo.address)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[1].solarPlan", Matchers.`is`(consumerAccountTwo.solarPlan!!.toString())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].mapCoordinates", Matchers.`is`(consumerAccountTwo.mapCoordinates)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].generatorAddress", Matchers.`is`(listOf(generatorAccount.address))))
     }
 
     @Test
     fun getConsumerByAddress() {
+        consumerAccountRepository.deleteAll()
         val consumerAccount = consumerAccountRepository.save(ConsumerAccountBuilder().default())
 
         mockMvc
@@ -59,10 +72,11 @@ class ConsumerControllerTest {
 
     @Test
     fun getConsumerByMssl() {
+        consumerAccountRepository.deleteAll()
         val generatorAccountOne = GeneratorAccountBuilder().default()
         val generatorAccountTwo = GeneratorAccountBuilder(address = "146 Robison, Singapore").default()
         val generatorAccountThree = GeneratorAccountBuilder(address = "147 Robison, Singapore").default()
-        val consumerAccount = consumerAccountRepository.save(ConsumerAccountBuilder().withGeneratorAccounts(
+        val consumerAccount = consumerAccountRepository.save(ConsumerAccountBuilder(mssl = "SG9002").withGeneratorAccounts(
                 listOf(generatorAccountOne, generatorAccountTwo, generatorAccountThree)
         ))
 
@@ -94,6 +108,7 @@ class ConsumerControllerTest {
 
     @Test
     fun updateConsumerPlan() {
+        consumerAccountRepository.deleteAll()
         val consumerAccount = consumerAccountRepository.save(ConsumerAccountBuilder().default())
         val solarPlan = SolarPlan.SolarLITE
 
@@ -123,6 +138,7 @@ class ConsumerControllerTest {
 
     @Test
     fun countSolarPlans() {
+        consumerAccountRepository.deleteAll()
         consumerAccountRepository.save(ConsumerAccount(10, "145 Robison, Singapore", SolarPlan.SolarLITE, "SG0001"))
         consumerAccountRepository.save(ConsumerAccount(20, "290 Robison, Singapore", SolarPlan.SolarPEAK, "SG0002"))
         consumerAccountRepository.save(ConsumerAccount(30, "145 Robison, Singapore", SolarPlan.SolarFLEX, "SG0003"))

@@ -37,8 +37,13 @@ class ConsumerService(val consumerAccountRepository: ConsumerAccountRepository) 
 
     fun updateConsumerPlan(mssl: String, solarPlan: SolarPlan): ConsumerAccount {
         val consumerAccount = consumerAccountRepository.findByMssl(mssl)
-        consumerAccount.solarPlan = solarPlan
-        return consumerAccountRepository.save(consumerAccount)
+        val updatedAccount = ConsumerAccount(address = consumerAccount.address,
+                solarPlan = solarPlan,
+                mapCoordinates = consumerAccount.mapCoordinates,
+                generatorAccounts = consumerAccount.generatorAccounts,
+                mssl = consumerAccount.mssl)
+        consumerAccountRepository.delete(consumerAccount)
+        return consumerAccountRepository.save(updatedAccount)
     }
 
     fun removeConsumerByMssl(mssl: String?): Long {
