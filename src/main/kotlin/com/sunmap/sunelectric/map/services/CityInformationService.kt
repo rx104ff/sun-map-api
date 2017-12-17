@@ -5,8 +5,10 @@ import com.sunmap.sunelectric.map.models.CityInformation
 import com.sunmap.sunelectric.map.repositories.CityInformationRepository
 import com.sunmap.sunelectric.map.services.helpers.GeoCodeService
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
+@Transactional
 class CityInformationService(val cityInformationRepository: CityInformationRepository,
                              val geoCodeService: GeoCodeService) {
     fun getCityInformationByName(cityName: String): CityInformationDTO {

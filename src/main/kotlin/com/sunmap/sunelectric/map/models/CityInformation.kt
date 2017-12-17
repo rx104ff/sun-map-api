@@ -18,7 +18,9 @@ data class CityInformation(
         var mapCoordinates: List<Double>? = null
 ) {
     fun toDto(): CityInformationDTO {
-        return CityInformationDTO(name = name)
+        return CityInformationDTO(
+                name = name,
+                mapCoordinates = mapCoordinates)
     }
 
     companion object {

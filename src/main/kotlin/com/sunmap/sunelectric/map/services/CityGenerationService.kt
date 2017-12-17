@@ -4,7 +4,7 @@ import com.sunmap.sunelectric.map.repositories.GenerationRepository
 import org.springframework.stereotype.Service
 
 @Service
-class GenerationService(
+class CityGenerationService(
         val generationRepository: GenerationRepository) {
 
     fun getSolarHourlyGenerationByCity(city: String): Int{

@@ -1,12 +1,12 @@
 package com.sunmap.sunelectric.map.models
 
-import com.sunmap.sunelectric.map.dtos.ConsumptionDTO
+import com.sunmap.sunelectric.map.dtos.CityConsumptionDTO
 import com.sunmap.sunelectric.map.enums.Duration
 import java.time.LocalDateTime
 import javax.persistence.*
 
 @Entity
-data class Consumption(
+data class CityConsumption(
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         val id: Long? = null,
@@ -31,8 +31,8 @@ data class Consumption(
 
 
 ) {
-    fun toDto(): ConsumptionDTO {
-        return ConsumptionDTO(
+    fun toDto(): CityConsumptionDTO {
+        return CityConsumptionDTO(
                 solarConsumption = solarConsumption,
                 totalConsumption = totalConsumption,
                 duration =  duration,
@@ -42,12 +42,12 @@ data class Consumption(
     }
 
     companion object {
-        fun fromDto(dto: ConsumptionDTO): Consumption {
-            return Consumption(
-                    totalConsumption = dto.totalConsumption,
-                    solarConsumption = dto.solarConsumption,
-                    duration = dto.duration,
-                    dateTime = dto.dateTime
+        fun fromDto(dtoCity: CityConsumptionDTO): CityConsumption {
+            return CityConsumption(
+                    totalConsumption = dtoCity.totalConsumption,
+                    solarConsumption = dtoCity.solarConsumption,
+                    duration = dtoCity.duration,
+                    dateTime = dtoCity.dateTime
             )
         }
     }

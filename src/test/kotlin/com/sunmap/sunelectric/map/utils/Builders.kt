@@ -154,8 +154,8 @@ data class ConsumptionBuilder(
         private val duration: Duration? = null,
         private val dateTime: LocalDateTime? = null
 ) {
-    fun default(): Consumption {
-        return Consumption(
+    fun default(): CityConsumption {
+        return CityConsumption(
                 totalConsumption = this.totalConsumption,
                 solarConsumption = this.solarConsumption,
                 duration = this.duration,
@@ -171,8 +171,8 @@ data class GenerationBuilder(
         private val duration: Duration? = null,
         private val dateTime: LocalDateTime? = null
 ) {
-    fun default(): Generation {
-        return Generation(
+    fun default(): CityGeneration {
+        return CityGeneration(
                 solarGeneration = this.solarGeneration,
                 city = this.city,
                 duration = this.duration,

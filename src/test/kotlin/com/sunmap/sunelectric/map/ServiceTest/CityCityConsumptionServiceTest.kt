@@ -4,7 +4,7 @@ import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
 import com.sunmap.sunelectric.map.enums.Duration
 import com.sunmap.sunelectric.map.repositories.ConsumptionRepository
-import com.sunmap.sunelectric.map.services.ConsumptionService
+import com.sunmap.sunelectric.map.services.CityConsumptionService
 import com.sunmap.sunelectric.map.utils.ConsumptionBuilder
 import org.assertj.core.api.Assertions
 import org.junit.Test
@@ -21,12 +21,12 @@ import java.time.LocalDateTime
 @SpringBootTest
 @AutoConfigureMockMvc
 @Transactional
-class ConsumptionServiceTest {
+class CityCityConsumptionServiceTest {
     @Mock
     lateinit var consumptionRepository: ConsumptionRepository
 
     @InjectMocks
-    lateinit var consumptionService: ConsumptionService
+    lateinit var cityConsumptionService: CityConsumptionService
 
     @Test
     fun getMonthlyTotalConsumptionByCity() {
@@ -37,7 +37,7 @@ class ConsumptionServiceTest {
 
         whenever(consumptionRepository.findTop24ByDurationAndCityOrderByDateTimeDesc(cityName, duration)).thenReturn(listOf(consumptionOne, consumptionTwo))
 
-        val singaporeMonthlyConsumption = consumptionService.getTotalMonthlyConsumptionByCity(cityName)
+        val singaporeMonthlyConsumption = cityConsumptionService.getTotalMonthlyConsumptionByCity(cityName)
 
         verify(consumptionRepository).findTop24ByDurationAndCityOrderByDateTimeDesc(cityName, duration)
         Assertions.assertThat(singaporeMonthlyConsumption.toLong())
@@ -53,7 +53,7 @@ class ConsumptionServiceTest {
 
         whenever(consumptionRepository.findTop24ByDurationAndCityOrderByDateTimeDesc(cityName, duration)).thenReturn(listOf(consumptionOne, consumptionTwo))
 
-        val singaporeMonthlyConsumption = consumptionService.getSolarMonthlyConsumptionByCity(cityName)
+        val singaporeMonthlyConsumption = cityConsumptionService.getSolarMonthlyConsumptionByCity(cityName)
 
         verify(consumptionRepository).findTop24ByDurationAndCityOrderByDateTimeDesc(cityName, duration)
         Assertions.assertThat(singaporeMonthlyConsumption.toLong())
@@ -69,7 +69,7 @@ class ConsumptionServiceTest {
 
         whenever(consumptionRepository.findByDurationAndCityOrderByDateTimeDesc(cityName, duration)).thenReturn(listOf(consumptionOne, consumptionTwo))
 
-        val singaporeYearlyConsumption = consumptionService.getTotalYearlyConsumptionByCity(cityName)
+        val singaporeYearlyConsumption = cityConsumptionService.getTotalYearlyConsumptionByCity(cityName)
 
         verify(consumptionRepository).findByDurationAndCityOrderByDateTimeDesc(cityName, duration)
         Assertions.assertThat(singaporeYearlyConsumption.toLong())
@@ -85,7 +85,7 @@ class ConsumptionServiceTest {
 
         whenever(consumptionRepository.findByDurationAndCityOrderByDateTimeDesc(cityName, duration)).thenReturn(listOf(consumptionOne, consumptionTwo))
 
-        val singaporeYearlyConsumption = consumptionService.getSolarYearlyConsumptionByCity(cityName)
+        val singaporeYearlyConsumption = cityConsumptionService.getSolarYearlyConsumptionByCity(cityName)
 
         verify(consumptionRepository).findByDurationAndCityOrderByDateTimeDesc(cityName, duration)
         Assertions.assertThat(singaporeYearlyConsumption.toLong())
@@ -101,7 +101,7 @@ class ConsumptionServiceTest {
 
         whenever(consumptionRepository.findTop24ByDurationAndCityOrderByDateTimeDesc(cityName, duration)).thenReturn(listOf(consumptionOne, consumptionTwo))
 
-        val singaporeHourlyConsumption = consumptionService.getTotalHourlyConsumptionByCity(cityName)
+        val singaporeHourlyConsumption = cityConsumptionService.getTotalHourlyConsumptionByCity(cityName)
 
         verify(consumptionRepository).findTop24ByDurationAndCityOrderByDateTimeDesc(cityName, duration)
         Assertions.assertThat(singaporeHourlyConsumption.toLong())
@@ -117,7 +117,7 @@ class ConsumptionServiceTest {
 
         whenever(consumptionRepository.findTop24ByDurationAndCityOrderByDateTimeDesc(cityName, duration)).thenReturn(listOf(consumptionOne, consumptionTwo))
 
-        val singaporeHourlyConsumption = consumptionService.getSolarHourlyConsumptionByCity(cityName)
+        val singaporeHourlyConsumption = cityConsumptionService.getSolarHourlyConsumptionByCity(cityName)
 
         verify(consumptionRepository).findTop24ByDurationAndCityOrderByDateTimeDesc(cityName, duration)
         Assertions.assertThat(singaporeHourlyConsumption.toLong())
@@ -133,7 +133,7 @@ class ConsumptionServiceTest {
 
         whenever(consumptionRepository.findTop30ByDurationAndCityOrderByDateTimeDesc(cityName, duration)).thenReturn(listOf(consumptionOne, consumptionTwo))
 
-        val singaporeDailyConsumption = consumptionService.getTotalDailyConsumptionByCity(cityName)
+        val singaporeDailyConsumption = cityConsumptionService.getTotalDailyConsumptionByCity(cityName)
 
         verify(consumptionRepository).findTop30ByDurationAndCityOrderByDateTimeDesc(cityName, duration)
         Assertions.assertThat(singaporeDailyConsumption.toLong())
@@ -149,7 +149,7 @@ class ConsumptionServiceTest {
 
         whenever(consumptionRepository.findTop30ByDurationAndCityOrderByDateTimeDesc(cityName, duration)).thenReturn(listOf(consumptionOne, consumptionTwo))
 
-        val singaporeDailyConsumption = consumptionService.getSolarDailyConsumptionByCity(cityName)
+        val singaporeDailyConsumption = cityConsumptionService.getSolarDailyConsumptionByCity(cityName)
 
         verify(consumptionRepository).findTop30ByDurationAndCityOrderByDateTimeDesc(cityName, duration)
         Assertions.assertThat(singaporeDailyConsumption.toLong())

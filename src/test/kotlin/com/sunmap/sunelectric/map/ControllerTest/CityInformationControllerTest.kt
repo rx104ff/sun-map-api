@@ -30,6 +30,7 @@ class CityInformationControllerTest {
 
     @Test
     fun getCityInformaiton_ByCityName() {
+        cityInformationRepository.deleteAll()
         val expectedCity = "Singapore"
         val expectedGlobalInformation = cityInformationRepository.save(CityInformation(name = expectedCity))
 

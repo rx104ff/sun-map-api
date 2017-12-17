@@ -6,7 +6,7 @@ import java.time.LocalDateTime
 import javax.persistence.*
 
 @Entity
-data class Generation(
+data class CityGeneration(
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         val id: Long? = null,
@@ -34,8 +34,8 @@ data class Generation(
     }
 
     companion object {
-        fun fromDto(dto: GenerationDTO): Generation {
-            return Generation(
+        fun fromDto(dto: GenerationDTO): CityGeneration {
+            return CityGeneration(
                     solarGeneration = dto.hourlySolarGeneration,
                     duration = dto.duration,
                     dateTime = dto.dateTime

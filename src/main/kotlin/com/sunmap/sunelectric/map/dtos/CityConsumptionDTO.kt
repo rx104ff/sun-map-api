@@ -4,7 +4,7 @@ import com.sunmap.sunelectric.map.enums.Duration
 
 import java.time.LocalDateTime
 
-data class ConsumptionDTO(
+data class CityConsumptionDTO(
         val solarConsumption: Long? = null,
         val totalConsumption: Long? = null,
         val duration: Duration? = null,

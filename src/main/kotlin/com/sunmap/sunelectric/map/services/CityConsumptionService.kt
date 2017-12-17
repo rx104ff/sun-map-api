@@ -5,7 +5,7 @@ import com.sunmap.sunelectric.map.repositories.ConsumptionRepository
 import org.springframework.stereotype.Service
 
 @Service
-class ConsumptionService(
+class CityConsumptionService(
         val consumptionRepository: ConsumptionRepository) {
     fun getTotalHourlyConsumptionByCity(city: String): Int {
         val totalConsumptions: List<Long?> = consumptionRepository.findTop24ByDurationAndCityOrderByDateTimeDesc(city, Duration.Hour).map { it.totalConsumption }

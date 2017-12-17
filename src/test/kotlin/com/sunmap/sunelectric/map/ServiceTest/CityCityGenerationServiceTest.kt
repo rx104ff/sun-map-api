@@ -3,7 +3,7 @@ package com.sunmap.sunelectric.map.ServiceTest
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
 import com.sunmap.sunelectric.map.repositories.GenerationRepository
-import com.sunmap.sunelectric.map.services.GenerationService
+import com.sunmap.sunelectric.map.services.CityGenerationService
 import com.sunmap.sunelectric.map.utils.GenerationBuilder
 import org.assertj.core.api.Assertions
 import org.junit.Test
@@ -20,12 +20,12 @@ import java.time.LocalDateTime
 @SpringBootTest
 @AutoConfigureMockMvc
 @Transactional
-class GenerationServiceTest {
+class CityCityGenerationServiceTest {
     @Mock
     lateinit var generationRepository: GenerationRepository
 
     @InjectMocks
-    lateinit var generationService: GenerationService
+    lateinit var cityGenerationService: CityGenerationService
 
     @Test
     fun getSolarGenerationByCity() {
@@ -35,7 +35,7 @@ class GenerationServiceTest {
 
         whenever(generationRepository.findAllByCity(cityName)).thenReturn(listOf(generationOne, generationTwo))
 
-        val singaporeHourlyGeneration = generationService.getSolarHourlyGenerationByCity(cityName)
+        val singaporeHourlyGeneration = cityGenerationService.getSolarHourlyGenerationByCity(cityName)
 
         verify(generationRepository).findAllByCity(cityName)
         Assertions.assertThat(singaporeHourlyGeneration.toLong())
