@@ -1,5 +1,6 @@
 package com.sunmap.sunelectric.map.utils
 
+import com.sunmap.sunelectric.map.dtos.CityInformationDTO
 import com.sunmap.sunelectric.map.dtos.ConsumerAccountDTO
 import com.sunmap.sunelectric.map.dtos.GeneratorAccountDTO
 import com.sunmap.sunelectric.map.dtos.GlobalInformationDTO
@@ -176,6 +177,31 @@ data class GenerationBuilder(
                 city = this.city,
                 duration = this.duration,
                 dateTime = this.dateTime
+        )
+    }
+}
+
+
+data class CityInformationBuilder(
+        private val name: String = "Singapore",
+        private val mapCoordinates: List<Double> = listOf(103.808053, 1.351616)
+) {
+    fun default(): CityInformation {
+        return CityInformation(
+                name = name
+//                mapCoordinates = mapCoordinates
+        )
+    }
+}
+
+data class CityInformationDTOBuilder(
+        private val name: String = "Singapore",
+        private val mapCoordinates: List<Double> = listOf(103.808053, 1.351616)
+) {
+    fun default(): CityInformationDTO {
+        return CityInformationDTO(
+                name = name,
+                mapCoordinates = mapCoordinates
         )
     }
 }

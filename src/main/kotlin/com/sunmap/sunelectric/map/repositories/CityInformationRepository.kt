@@ -5,4 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository
 
 interface CityInformationRepository : JpaRepository<CityInformation, Long> {
     fun findByName(name: String): CityInformation
+    fun removeByName(name: String?): Long
+//    fun findByMapCoorinates(mapCoordinates: List<Double>): CityInformation
 }
