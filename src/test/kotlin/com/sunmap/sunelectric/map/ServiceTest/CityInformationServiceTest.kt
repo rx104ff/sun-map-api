@@ -48,7 +48,7 @@ class CityInformationServiceTest {
         val expectedCityInformation = CityInformationBuilder().default()
         whenever(cityInformationRepository.save(CityInformation.fromDto(cityInformationDTO))).thenReturn(expectedCityInformation)
         whenever(geoCodeService.getCoordinates(cityInformationDTO.name!!)).thenReturn(cityInformationDTO.mapCoordinates)
-        val cityInformation = cityInformationService.saveCityInformation(cityInformationDTO)
+        val cityInformation = cityInformationService.saveCityInformation(cityInformationDTO.name!!)
 
         verify(cityInformationRepository).save(CityInformation.fromDto(cityInformationDTO))
         Assertions.assertThat(cityInformation.mapCoordinates).isEqualTo(expectedCityInformation.mapCoordinates)

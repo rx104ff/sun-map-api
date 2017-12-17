@@ -13,9 +13,9 @@ class CityInformationService(val cityInformationRepository: CityInformationRepos
         return cityInformationRepository.findByName(cityName).toDto()
     }
 
-    fun saveCityInformation(cityInformationDTO: CityInformationDTO): CityInformation {
-        cityInformationDTO.withCoordiantes(geoCodeService.getCoordinates(cityInformationDTO.name!!))
-        return cityInformationRepository.save(CityInformation.fromDto(cityInformationDTO))
+    fun saveCityInformation(cityName: String): CityInformation {
+        val mapCoordinates = geoCodeService.getCoordinates(cityName)
+        return cityInformationRepository.save(CityInformation(name = cityName, mapCoordinates = mapCoordinates))
     }
 
     fun removeCityInformatinByName(cityName: String): Long {
